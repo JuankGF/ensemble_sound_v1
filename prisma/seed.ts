@@ -124,7 +124,7 @@ const techRider: Prisma.EquipmentCreateInput[] = [
 const serviceData: Prisma.ServiceCreateInput[] = [
   {
     name: "",
-    desciption: "",
+    description: "",
     type: "LIVE_EVENT",
     media: {
       create: {

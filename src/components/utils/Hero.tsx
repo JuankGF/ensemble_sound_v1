@@ -39,7 +39,7 @@ export default function Hero({
             <h1 className={`text-5xl font-bold ${title_class}`}>
               Ensemble Sound
             </h1>
-            <p className="py-6">{text}</p>
+            <p className="py-6 text-white">{text}</p>
             <Button variant={button_variant} onClick={button_action}>
               {button_label}
             </Button>

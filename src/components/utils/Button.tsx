@@ -35,17 +35,17 @@ export default function Button({
   shape,
   variant = "primary",
 }: PropsWithChildren<ButtonProps>) {
-  const shapeClass = shape ? `btn-${shape}` : "";
-  const sizeClass = size ? `btn-${size}` : "";
-  const outlineClass = outline ? `btn-outline` : "";
-  const loadingState = loading ? `btn-loading` : "";
-  const glassClass = glass ? `btn-glass` : "";
+  const shapeClass = shape ? `btn-${shape} ` : "";
+  const sizeClass = size ? `btn-${size} ` : "";
+  const outlineClass = outline ? `btn-outline ` : "";
+  const loadingState = loading ? `btn-loading ` : "";
+  const glassClass = glass ? `btn-glass ` : "";
 
   return (
     <button
-      className={`btn gap-2 ${
+      className={`btn-${variant.toString()} btn  gap-2 ${
         className ?? ""
-      } btn-${variant} ${shapeClass} ${sizeClass} ${outlineClass} ${loadingState} ${glassClass}`}
+      }  ${shapeClass}${sizeClass}${outlineClass}${loadingState}${glassClass}`}
       disabled={disabled}
       onClick={onClick}
     >

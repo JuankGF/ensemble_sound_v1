@@ -1,4 +1,5 @@
-import { type Prisma } from "@prisma/client";
+import { type Prisma, PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
   {
@@ -135,4 +136,35 @@ const serviceData: Prisma.ServiceCreateInput[] = [
   },
 ];
 
-export { userData, techRider, serviceData };
+async function main() {
+  // Prisma queries
+  await prisma.equipment.deleteMany();
+
+  console.log(`Start DB seeding ...`);
+  for (const u of userData) {
+    const user = await prisma.user.upsert({
+      where: { email: u.email ?? "" },
+      update: {},
+      create: { ...u },
+    });
+    if (user.name && user.email)
+      console.log(`Created user ${user.name} with email: ${user.email}`);
+  }
+  for (const eq of techRider) {
+    const equipment = await prisma.equipment.create({ data: eq });
+    console.log(
+      `Created equipment ${equipment.name} with quantity: ${equipment.quantity}`
+    );
+  }
+  console.log(`Seeding finished.`);
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

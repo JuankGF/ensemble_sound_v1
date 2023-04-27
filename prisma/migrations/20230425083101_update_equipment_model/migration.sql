@@ -1,10 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `image` on the `User` table. All the data in the column will be lost.
-  - A unique constraint covering the columns `[avatar]` on the table `User` will be added. If there are existing duplicate values, this will fail.
-
-*/
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER');
 
@@ -14,9 +7,62 @@ CREATE TYPE "ServiceType" AS ENUM ('LIVE_EVENT', 'RENTAL', 'STUDIO', 'SOUND_TEST
 -- CreateEnum
 CREATE TYPE "EquipmentType" AS ENUM ('MIXERS', 'MICROPHONES', 'SUB', 'SPEAKERS', 'MONITORS', 'STAGE_BOXES', 'DIRECT_INPUT', 'INSTRUMENTS', 'TOOLS');
 
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "image",
-ADD COLUMN     "avatar" TEXT;
+-- CreateTable
+CREATE TABLE "Example" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Example_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Account" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "provider" TEXT NOT NULL,
+    "providerAccountId" TEXT NOT NULL,
+    "refresh_token" TEXT,
+    "access_token" TEXT,
+    "expires_at" INTEGER,
+    "token_type" TEXT,
+    "scope" TEXT,
+    "id_token" TEXT,
+    "session_state" TEXT,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "sessionToken" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "expires" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "email" TEXT,
+    "emailVerified" TIMESTAMP(3),
+    "avatar" TEXT,
+    "phone" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VerificationToken" (
+    "identifier" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "expires" TIMESTAMP(3) NOT NULL
+);
 
 -- CreateTable
 CREATE TABLE "Service" (
@@ -68,8 +114,8 @@ CREATE TABLE "Equipment" (
     "type" "EquipmentType" NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
-    "is_rental_available" BOOLEAN NOT NULL DEFAULT true,
     "next_rental_date" TIMESTAMP(3),
+    "in_rent_quantity" DOUBLE PRECISION DEFAULT 0,
 
     CONSTRAINT "Equipment_pkey" PRIMARY KEY ("id")
 );
@@ -85,6 +131,24 @@ CREATE TABLE "Media" (
 
     CONSTRAINT "Media_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_avatar_key" ON "User"("avatar");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Service_name_key" ON "Service"("name");
@@ -116,8 +180,11 @@ CREATE UNIQUE INDEX "Media_path_key" ON "Media"("path");
 -- CreateIndex
 CREATE INDEX "Media_path_idx" ON "Media"("path");
 
--- CreateIndex
-CREATE UNIQUE INDEX "User_avatar_key" ON "User"("avatar");
+-- AddForeignKey
+ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_avatar_fkey" FOREIGN KEY ("avatar") REFERENCES "Media"("id") ON DELETE SET NULL ON UPDATE CASCADE;

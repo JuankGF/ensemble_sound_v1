@@ -51,8 +51,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     testimonials  Testimonial[]
-    media         Media?        @relation(fields: [avatar], references: [id])
-    avatar        String?       @unique
+    image         String?       @unique
     phone         String?
     role          Role          @default(USER)
 }
@@ -102,19 +101,19 @@ model Event {
 }
 
 model Equipment {
-    id                String        @id @default(cuid())
-    media             Media?        @relation(fields: [mediaId], references: [id])
-    mediaId           String?       @unique @map("media_id")
-    name              String        @unique
-    description       String
-    dimension         String?
-    weight            Float?
-    quantity          Float         @default(1)
-    type              EquipmentType
-    createdAt         DateTime?     @default(now()) @map("created_at")
-    updatedAt         DateTime?     @updatedAt @map("updated_at")
-    isRentalAvailable Boolean       @default(true) @map("is_rental_available")
-    nextRentalDate    DateTime?     @map("next_rental_date")
+    id             String        @id @default(cuid())
+    media          Media?        @relation(fields: [mediaId], references: [id])
+    mediaId        String?       @unique @map("media_id")
+    name           String        @unique
+    description    String
+    dimension      String?
+    weight         Float?
+    quantity       Float         @default(1)
+    type           EquipmentType
+    createdAt      DateTime?     @default(now()) @map("created_at")
+    updatedAt      DateTime?     @updatedAt @map("updated_at")
+    nextRentalDate DateTime?     @map("next_rental_date")
+    inRentQuantity Float?        @default(0) @map("in_rent_quantity")
 
     @@index([name])
 }
@@ -129,7 +128,6 @@ model Media {
     equipment Equipment?
     event     Event?
     service   Service?
-    user      User?
 
     @@index([path])
 }

@@ -46,7 +46,7 @@ export const serviceRouter = createTRPCRouter({
       return ctx.prisma.service.create({
         data: {
           name: input.name,
-          desciption: input.description,
+          description: input.description,
           type: input.type,
           estimatedPrice: input.estimatedPrice,
           media: {
@@ -64,14 +64,16 @@ export const serviceRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        name: z.string(),
-        description: z.string(),
-        estimatedPrice: z.number(),
-        media: z.object({
-          name: z.string(),
-          path: z.string(),
-          extension: z.string(),
-        }),
+        name: z.string().optional(),
+        description: z.string().optional(),
+        estimatedPrice: z.number().optional(),
+        media: z
+          .object({
+            name: z.string(),
+            path: z.string(),
+            extension: z.string(),
+          })
+          .optional(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -81,20 +83,22 @@ export const serviceRouter = createTRPCRouter({
         },
         data: {
           name: input.name,
-          desciption: input.description,
+          description: input.description,
           estimatedPrice: input.estimatedPrice,
-          media: {
-            connectOrCreate: {
-              where: {
-                path: input.media.path,
-              },
-              create: {
-                name: input.media.name,
-                path: input.media.path,
-                extension: input.media.extension,
-              },
-            },
-          },
+          media: input.media
+            ? {
+                connectOrCreate: {
+                  where: {
+                    path: input.media.path,
+                  },
+                  create: {
+                    name: input.media.name,
+                    path: input.media.path,
+                    extension: input.media.extension,
+                  },
+                },
+              }
+            : undefined,
         },
       });
     }),

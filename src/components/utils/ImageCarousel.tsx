@@ -4,28 +4,32 @@ import React from "react";
 type CarouselProps = {
   image_sources: string[] | StaticImageData[];
   indicators?: boolean;
+  className?: string;
 };
 
 export default function ImageCarousel({
   image_sources,
+  className,
   indicators = true,
 }: CarouselProps) {
   return (
-    <>
-      <div className="carousel-center carousel rounded-box max-w-md space-x-4 bg-neutral p-4">
+    <div>
+      <div
+        className={`carousel rounded-box w-full bg-neutral shadow-xl ${
+          className ?? ""
+        }`}
+      >
         {image_sources.map((image, index) => (
           <div
             id={`item${index + 1}`}
-            className="carousel-item"
+            className="carousel-item w-full justify-center"
             key={`${image.toString()}-${index}`}
           >
-            <div className="carousel-item">
-              <Image
-                className="carousel-img rounded-box"
-                src={image}
-                alt={`${index + 1} slide`}
-              />
-            </div>
+            <Image
+              className="w-full object-cover"
+              src={image}
+              alt={`${index + 1} slide`}
+            />
           </div>
         ))}
       </div>
@@ -42,6 +46,6 @@ export default function ImageCarousel({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }

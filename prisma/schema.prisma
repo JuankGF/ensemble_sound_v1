@@ -67,7 +67,7 @@ model VerificationToken {
 model Service {
     id             String      @id @default(cuid())
     name           String      @unique
-    desciption     String
+    description    String
     estimatedPrice Float       @default(0) @map("estimated_price")
     type           ServiceType
     media          Media       @relation(fields: [mediaId], references: [id])

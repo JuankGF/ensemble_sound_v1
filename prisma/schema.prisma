@@ -51,8 +51,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     testimonials  Testimonial[]
-    media         Media?        @relation(fields: [avatar], references: [id])
-    avatar        String?       @unique
+    image         String?       @unique
     phone         String?
     role          Role          @default(USER)
 }
@@ -129,7 +128,6 @@ model Media {
     equipment Equipment?
     event     Event?
     service   Service?
-    user      User?
 
     @@index([path])
 }

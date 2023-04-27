@@ -15,9 +15,10 @@ export default function HeroSection() {
   return (
     <Hero
       text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      className="bg-primary section"
+      className="section bg-primary"
       button_variant="secondary"
       text_class="text-white"
+      overlayImg={isMobile ? bg1.src : undefined}
       button_action={() => void router.push("/book_online")}
     >
       {!isMobile && <ImageCarousel image_sources={[bg1, bg2, bg3, bg4]} />}

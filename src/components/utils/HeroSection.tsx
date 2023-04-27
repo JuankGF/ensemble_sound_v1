@@ -11,17 +11,22 @@ import bg4 from "~/assets/backgrounds/ensemble_bg4.jpg";
 
 export default function HeroSection() {
   const router = useRouter();
-  const { isMobile } = useWindowSize();
+  const { isSmallScreen } = useWindowSize();
   return (
     <Hero
       text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       className="section bg-primary"
       button_variant="secondary"
       text_class="text-white"
-      overlayImg={isMobile ? bg1.src : undefined}
+      overlayImg={isSmallScreen ? bg1.src : undefined}
       button_action={() => void router.push("/book_online")}
     >
-      {!isMobile && <ImageCarousel image_sources={[bg1, bg2, bg3, bg4]} />}
+      {!isSmallScreen && (
+        <ImageCarousel
+          image_sources={[bg1, bg2, bg3, bg4]}
+          className="max-h-96"
+        />
+      )}
     </Hero>
   );
 }

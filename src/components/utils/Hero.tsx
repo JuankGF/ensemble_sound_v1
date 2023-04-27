@@ -28,7 +28,7 @@ export default function Hero({
   if (overlayImg)
     return (
       <div
-        className="hero min-h-screen"
+        className="hero min-h-fit"
         style={{
           backgroundImage: `url("${overlayImg}")`,
         }}
@@ -49,9 +49,9 @@ export default function Hero({
     );
 
   return (
-    <div id={id} className={`hero min-h-screen bg-base-200 ${className ?? ""}`}>
+    <div id={id} className={`hero min-h-fit bg-base-200 ${className ?? ""}`}>
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="max-w-sm rounded-lg shadow-2xl">{children}</div>
+        <div className="max-w-lg rounded-lg">{children}</div>
         <div>
           <h1 className={`text-5xl font-bold ${title_class}`}>
             Ensemble Sound

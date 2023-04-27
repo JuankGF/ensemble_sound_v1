@@ -23,11 +23,13 @@ export const equipmentRouter = createTRPCRouter({
         quantity: z.number(),
         weight: z.number(),
         dimensions: z.string(),
-        media: z.object({
-          name: z.string(),
-          path: z.string(),
-          extension: z.string(),
-        }),
+        media: z
+          .object({
+            name: z.string(),
+            path: z.string(),
+            extension: z.string(),
+          })
+          .optional(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -39,13 +41,15 @@ export const equipmentRouter = createTRPCRouter({
           quantity: input.quantity,
           weight: input.weight,
           dimension: input.dimensions,
-          media: {
-            create: {
-              name: input.media.name,
-              path: input.media.path,
-              extension: input.media.extension,
-            },
-          },
+          media: input.media
+            ? {
+                create: {
+                  name: input.media.name,
+                  path: input.media.path,
+                  extension: input.media.extension,
+                },
+              }
+            : undefined,
         },
       });
     }),
@@ -54,16 +58,18 @@ export const equipmentRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        name: z.string(),
-        description: z.string(),
-        quantity: z.number(),
-        weight: z.number(),
-        dimensions: z.string(),
-        media: z.object({
-          name: z.string(),
-          path: z.string(),
-          extension: z.string(),
-        }),
+        name: z.string().optional(),
+        description: z.string().optional(),
+        quantity: z.number().optional(),
+        weight: z.number().optional(),
+        dimensions: z.string().optional(),
+        media: z
+          .object({
+            name: z.string(),
+            path: z.string(),
+            extension: z.string(),
+          })
+          .optional(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -77,18 +83,20 @@ export const equipmentRouter = createTRPCRouter({
           quantity: input.quantity,
           weight: input.weight,
           dimension: input.dimensions,
-          media: {
-            connectOrCreate: {
-              where: {
-                path: input.media.path,
-              },
-              create: {
-                name: input.media.name,
-                path: input.media.path,
-                extension: input.media.extension,
-              },
-            },
-          },
+          media: input.media
+            ? {
+                connectOrCreate: {
+                  where: {
+                    path: input.media.path,
+                  },
+                  create: {
+                    name: input.media.name,
+                    path: input.media.path,
+                    extension: input.media.extension,
+                  },
+                },
+              }
+            : undefined,
         },
       });
     }),

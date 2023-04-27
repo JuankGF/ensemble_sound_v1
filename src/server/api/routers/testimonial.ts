@@ -70,12 +70,12 @@ export const testimonialRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        text: z.string(),
-        raiting: z.number(),
+        text: z.string().optional(),
+        raiting: z.number().optional(),
       })
     )
     .mutation(({ ctx, input }) => {
-      if (input.raiting > 5 || input.raiting < 1) {
+      if (input.raiting && (input.raiting > 5 || input.raiting < 1)) {
         throw new trpc.TRPCError({
           code: "BAD_REQUEST",
           message: "Raiting must be a value between 1 and 5.",

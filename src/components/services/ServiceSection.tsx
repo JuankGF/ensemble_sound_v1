@@ -6,10 +6,7 @@ import { api } from "~/utils/api";
 import ServiceCard from "./ServiceCard";
 
 export default function ServiceSection() {
-  const { data: services } = api.services.getAll.useQuery({
-    count: 3,
-    distinct: "type",
-  });
+  const { data: services } = api.services.getAll.useQuery({});
   return (
     <div className="my-8 w-full md:px-10 lg:px-16">
       <div className="flex w-full">

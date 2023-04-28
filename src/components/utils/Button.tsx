@@ -19,8 +19,9 @@ type ButtonProps = {
   outline?: boolean;
   size?: "lg" | "sm" | "xs";
   shape?: "square" | "circle";
+  type: "button" | "submit" | "reset";
   variant?: ButtonVariant;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export default function Button({
@@ -33,6 +34,7 @@ export default function Button({
   onClick,
   size,
   shape,
+  type = "button",
   variant = "primary",
 }: PropsWithChildren<ButtonProps>) {
   const shapeClass = shape ? ` btn-${shape} ` : "";
@@ -43,6 +45,7 @@ export default function Button({
 
   return (
     <button
+      type={type}
       className={`btn-${variant.toString()} btn gap-2 text-white ${
         className ?? ""
       }${shapeClass}${sizeClass}${outlineClass}${loadingState}${glassClass}`}

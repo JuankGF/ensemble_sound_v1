@@ -79,7 +79,7 @@ model Service {
 
 model Testimonial {
     id       String @id @default(cuid())
-    author   User   @relation(fields: [authorId], references: [id])
+    author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
     authorId String @map("author_id")
     text     String
     rating   Float  @default(5)
@@ -92,8 +92,7 @@ model Event {
     date           DateTime
     address        String?
     description    String
-    media          Media?   @relation(fields: [mediaId], references: [id])
-    mediaId        String?  @unique @map("media_id")
+    media          Media?
     type           String
     isPublic       Boolean  @default(false) @map("is_public")
     isSynchronized Boolean  @default(false) @map("is_synchronized")
@@ -103,8 +102,7 @@ model Event {
 
 model Equipment {
     id             String        @id @default(cuid())
-    media          Media?        @relation(fields: [mediaId], references: [id])
-    mediaId        String?       @unique @map("media_id")
+    media          Media?
     name           String        @unique
     description    String
     dimension      String?
@@ -120,15 +118,17 @@ model Equipment {
 }
 
 model Media {
-    id        String     @id @default(cuid())
-    name      String
-    path      String     @unique
-    extension String
-    createdAt DateTime   @default(now()) @map("created_at")
-    updatedAt DateTime?  @updatedAt @map("updated_at")
-    equipment Equipment?
-    event     Event?
-    service   Service?
+    id          String     @id @default(cuid())
+    name        String
+    path        String     @unique
+    extension   String
+    createdAt   DateTime   @default(now()) @map("created_at")
+    updatedAt   DateTime?  @updatedAt @map("updated_at")
+    equipment   Equipment? @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+    equipmentId String?    @unique
+    event       Event?     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    eventId     String?    @unique
+    service     Service?
 
     @@index([path])
 }

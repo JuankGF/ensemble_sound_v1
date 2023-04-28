@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { HeroSection } from "~/components/utils";
+import { ServiceSection } from "~/components/services";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -33,7 +34,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <HeroSection />
-
+        <ServiceSection />
         <div className={styles.showcaseContainer}>
           <p className="text-center text-lg text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}

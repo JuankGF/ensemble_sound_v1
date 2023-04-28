@@ -1,3 +1,7 @@
+$primary-color: rgb(88, 28, 135);
+$primary-color-focus: rgb(70, 22, 108);
+$secondary-color: rgb(154, 57, 250);
+
 .main {
   display: flex;
   flex-direction: column;
@@ -98,10 +102,11 @@
   padding: 0.75rem 2.5rem;
   font-weight: 600;
   color: white;
+  background-color: $primary-color;
   text-decoration-line: none;
   transition: background-color 150ms cubic-bezier(0.5, 0, 0.2, 1);
 }
 
 .loginButton:hover {
-  background-color: rgb(255 255 255 / 0.2);
+  background-color: $primary-color-focus;
 }

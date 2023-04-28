@@ -43,7 +43,7 @@ export default function Button({
 
   return (
     <button
-      className={`btn-${variant.toString()} btn gap-2 ${
+      className={`btn-${variant.toString()} btn gap-2 text-white ${
         className ?? ""
       }${shapeClass}${sizeClass}${outlineClass}${loadingState}${glassClass}`}
       disabled={disabled}

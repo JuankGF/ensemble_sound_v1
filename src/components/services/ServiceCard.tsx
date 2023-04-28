@@ -20,8 +20,8 @@ export default function ServiceCard({ service, mediaPath }: Props) {
       actionIcon={faBookmark}
       callToAction={() => void router.push(`/book_online/${service.id}`)}
     >
-      <div className="badge-outline badge">
-        <b>Price</b> <small>${service.estimatedPrice}</small>
+      <div className="badge-outline badge gap-2">
+        <b>Price</b> <p className="font-semibold">${service.estimatedPrice}</p>
       </div>
     </Card>
   );

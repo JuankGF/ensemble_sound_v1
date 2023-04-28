@@ -18,3 +18,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.btn {
+  text-transform: initial;
+}

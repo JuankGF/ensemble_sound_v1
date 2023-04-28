@@ -23,7 +23,7 @@ export default function ServiceSection() {
         </div>
       </div>
 
-      <div className="mt-6 grid w-full px-8 sm:grid-cols-1 md:gap-3 lg:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="mt-6 grid w-full place-items-center px-8 sm:grid-cols-1 md:gap-3 lg:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
         {services?.length === 0 ? (
           <div className="flex flex-col items-center text-xl font-semibold">
             <FontAwesomeIcon

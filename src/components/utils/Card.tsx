@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image, { type StaticImageData } from "next/image";
 import React, { type PropsWithChildren } from "react";
 
+import Button from "./Button";
+
 type CardProps = {
   title: string;
   text: string;
@@ -31,7 +33,13 @@ export default function Card({
     >
       {image && (
         <figure>
-          <Image src={image} alt="Shoes" />
+          <Image
+            src={image}
+            alt={title}
+            className="w-full object-cover"
+            width={200}
+            height={200}
+          />
         </figure>
       )}
       <div className="card-body">
@@ -40,10 +48,12 @@ export default function Card({
         {children}
         {callToAction && (
           <div className="card-actions justify-end">
-            <button className="btn-primary btn" onClick={callToAction}>
+            <Button onClick={callToAction}>
               {actionLabel}{" "}
-              {actionIcon && <FontAwesomeIcon icon={actionIcon} />}
-            </button>
+              {actionIcon && (
+                <FontAwesomeIcon icon={actionIcon} className="h-4 w-4" />
+              )}
+            </Button>
           </div>
         )}
       </div>

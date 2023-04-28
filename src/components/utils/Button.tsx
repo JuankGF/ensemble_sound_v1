@@ -19,7 +19,7 @@ type ButtonProps = {
   outline?: boolean;
   size?: "lg" | "sm" | "xs";
   shape?: "square" | "circle";
-  type: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset";
   variant?: ButtonVariant;
   onClick?: () => void;
 };

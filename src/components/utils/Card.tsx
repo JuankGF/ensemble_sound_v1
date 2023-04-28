@@ -27,7 +27,7 @@ export default function Card({
 }: PropsWithChildren<CardProps>) {
   return (
     <div
-      className={`card-compact card w-96 bg-base-100 shadow-xl${
+      className={`card-compact min-w-80 card bg-base-100 shadow-xl${
         layoutHorizontal ? " card-side" : ""
       }`}
     >
@@ -37,8 +37,8 @@ export default function Card({
             src={image}
             alt={title}
             className="w-full object-cover"
-            width={200}
-            height={200}
+            width={150}
+            height={150}
           />
         </figure>
       )}
@@ -48,7 +48,7 @@ export default function Card({
         {children}
         {callToAction && (
           <div className="card-actions justify-end">
-            <Button onClick={callToAction}>
+            <Button type="button" onClick={callToAction}>
               {actionLabel}{" "}
               {actionIcon && (
                 <FontAwesomeIcon icon={actionIcon} className="h-4 w-4" />

@@ -120,9 +120,12 @@ export const equipmentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const equipmentQty = await ctx.prisma.equipment.findUnique({
+      const equipmentQty = await ctx.prisma.equipment.findFirst({
         where: {
           id: input.equipmentId,
+          AND: {
+            quantity: { gte: input.toRentQuantity },
+          },
         },
         select: {
           quantity: true,
@@ -132,7 +135,7 @@ export const equipmentRouter = createTRPCRouter({
 
       if (
         equipmentQty &&
-        equipmentQty.quantity - (equipmentQty.inRentQuantity ?? 0) >
+        equipmentQty.quantity - (equipmentQty.inRentQuantity ?? 0) >=
           input.toRentQuantity
       ) {
         throw new trpc.TRPCError({

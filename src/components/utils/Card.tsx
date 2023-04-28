@@ -1,7 +1,7 @@
 import { type IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image, { type StaticImageData } from "next/image";
-import React from "react";
+import React, { type PropsWithChildren } from "react";
 
 type CardProps = {
   title: string;
@@ -20,8 +20,9 @@ export default function Card({
   actionIcon,
   actionLabel,
   layoutHorizontal,
+  children,
   callToAction,
-}: CardProps) {
+}: PropsWithChildren<CardProps>) {
   return (
     <div
       className={`card-compact card w-96 bg-base-100 shadow-xl${
@@ -36,10 +37,11 @@ export default function Card({
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
         <p>{text}</p>
+        {children}
         {callToAction && (
           <div className="card-actions justify-end">
             <button className="btn-primary btn" onClick={callToAction}>
-              {actionLabel}
+              {actionLabel}{" "}
               {actionIcon && <FontAwesomeIcon icon={actionIcon} />}
             </button>
           </div>

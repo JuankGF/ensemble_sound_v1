@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         <HeroSection />
 
         <div className={styles.showcaseContainer}>
-          <p className={styles.showcaseText}>
+          <p className="text-center text-lg text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
           <AuthShowcase />
@@ -58,7 +58,7 @@ const AuthShowcase: React.FC = () => {
 
   return (
     <div className={styles.authContainer}>
-      <p className={styles.showcaseText}>
+      <p className="text-center text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>

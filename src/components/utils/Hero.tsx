@@ -51,7 +51,7 @@ export default function Hero({
   return (
     <div id={id} className={`hero min-h-fit bg-base-200 ${className ?? ""}`}>
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="max-w-lg rounded-lg">{children}</div>
+        <div className="max-w-lg rounded-lg align-middle">{children}</div>
         <div>
           <h1 className={`text-5xl font-bold ${title_class}`}>
             Ensemble Sound

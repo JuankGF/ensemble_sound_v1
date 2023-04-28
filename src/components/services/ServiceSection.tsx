@@ -6,7 +6,10 @@ import { api } from "~/utils/api";
 import ServiceCard from "./ServiceCard";
 
 export default function ServiceSection() {
-  const { data: services } = api.services.getAll.useQuery();
+  const { data: services } = api.services.getAll.useQuery({
+    count: 3,
+    distinct: "type",
+  });
   return (
     <div className="my-8 w-full md:px-10 lg:px-16">
       <div className="flex w-full">
@@ -23,7 +26,7 @@ export default function ServiceSection() {
         </div>
       </div>
 
-      <div className="mt-6 grid w-full place-items-center px-8 sm:grid-cols-1 md:gap-3 lg:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="row-auto mt-6 grid w-full  place-items-center px-8 sm:grid-cols-1 sm:gap-2 lg:gap-3 xl:grid-cols-2 2xl:grid-cols-3">
         {services?.length === 0 ? (
           <div className="flex flex-col items-center text-xl font-semibold">
             <FontAwesomeIcon

@@ -38,6 +38,31 @@ export const serviceRouter = createTRPCRouter({
       });
     }),
 
+  getByType: publicProcedure
+    .input(
+      z.object({
+        count: z.number().optional(),
+        types: z.array(z.nativeEnum(ServiceType)).optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.service.findMany({
+        where:
+          !input.types || !input.types.length
+            ? {}
+            : {
+                type: {
+                  in: input.types,
+                },
+              },
+        include: {
+          media: true,
+        },
+        take: input.count,
+        orderBy: [{ name: "desc" }],
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({

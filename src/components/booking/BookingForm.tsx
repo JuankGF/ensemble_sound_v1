@@ -1,7 +1,8 @@
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 
 import { Button, Field } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,17 +14,7 @@ const BookingSchema = Yup.object().shape({
   phone: Yup.string().optional(),
   booking_date: Yup.string().required("Booking date is a required field"),
   arrival_time: Yup.string().required("Time is a required field"),
-  type: Yup.string()
-    .optional()
-    .oneOf([
-      "anniversary",
-      "birthday",
-      "engagement",
-      "live-event",
-      "rental",
-      "studio",
-      "sound-test",
-    ]),
+  type: Yup.string().optional(),
   description: Yup.string().required("Description is a required field"),
 });
 
@@ -42,8 +33,6 @@ type FormProps = {
 };
 
 export default function BookingForm({ initialValues = values }: FormProps) {
-  const currentDate = new Date();
-
   return (
     <Formik
       initialValues={initialValues}
@@ -62,6 +51,7 @@ export default function BookingForm({ initialValues = values }: FormProps) {
         handleChange,
         handleBlur,
         handleSubmit,
+        setFieldValue,
         isSubmitting,
         isValid,
       }) => (
@@ -113,7 +103,6 @@ export default function BookingForm({ initialValues = values }: FormProps) {
               type="tel"
               placeholder="Enter phone number"
               className="input-bordered input input-sm w-full max-w-full"
-              pattern="-\d{3}-\d{3}-\d{4}$"
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -134,14 +123,41 @@ export default function BookingForm({ initialValues = values }: FormProps) {
               value={values.booking_date}
               onChange={handleChange}
               onBlur={handleBlur}
-              min={format(currentDate, "yyyy-MM-dd")}
+              min={format(new Date(), "yyyy-MM-dd")}
             />
             <FontAwesomeIcon
               icon={faCalendarAlt}
               className="absolute right-2.5 top-2.5 h-3 w-3 text-xs"
             />
           </Field>
-          {/* !TODO Booking times */}
+          <Field
+            field="arrival_time"
+            label="Booking Time"
+            className="mb-3"
+            error={errors.arrival_time}
+            touched={touched.arrival_time}
+          >
+            <Select
+              id="arrival_time"
+              placeholder="Enter booking time"
+              isDisabled={initialValues.booking_date !== ""}
+              isClearable
+              onChange={(newVal) => {
+                setFieldValue("arrival_time", newVal?.value);
+              }}
+              onBlur={handleBlur}
+              options={[{ label: "10:00 PM", value: "22:00" }]}
+              styles={{
+                control(base) {
+                  return {
+                    ...base,
+                    borderRadius: "0.5rem",
+                    fontSize: "0.9rem",
+                  };
+                },
+              }}
+            />
+          </Field>
           <Field
             field="type"
             label="Event type"
@@ -154,8 +170,7 @@ export default function BookingForm({ initialValues = values }: FormProps) {
               placeholder="Enter event type"
               isDisabled={initialValues.type !== ""}
               isClearable
-              defaultInputValue={values.type}
-              onChange={(newVal) => handleChange(newVal?.value ?? "")}
+              onChange={(newVal) => setFieldValue("type", newVal?.value ?? "")}
               onBlur={handleBlur}
               options={[
                 { label: "Type", value: "" },

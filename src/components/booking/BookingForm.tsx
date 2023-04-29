@@ -3,10 +3,12 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
-
-import { Button, Field } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import { useSession } from "next-auth/react";
+import { ServiceType } from "@prisma/client";
+
+import { Button, Field } from "../utils";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -18,30 +20,52 @@ const BookingSchema = Yup.object().shape({
   description: Yup.string().required("Description is a required field"),
 });
 
-const values = {
-  email: "",
-  name: "",
-  phone: "",
-  booking_date: "",
-  arrival_time: "",
-  type: "",
-  description: "",
-};
-
 type FormProps = {
-  initialValues?: typeof values;
+  initialValues?: {
+    email: string;
+    name: string;
+    phone: string;
+    booking_date: string;
+    arrival_time: string;
+    type: string;
+    description: string;
+  };
 };
 
-export default function BookingForm({ initialValues = values }: FormProps) {
+export default function BookingForm({ initialValues }: FormProps) {
+  const { data } = useSession();
+
+  const { email, name } = data?.user ?? {};
+  const defaultValues = {
+    email: email ?? "",
+    name: name ?? "",
+    phone: "",
+    booking_date: "",
+    arrival_time: "",
+    type: "",
+    description: "",
+  };
+
+  const typeOptions = [
+    { label: "Type", value: "" },
+    { label: "Anniversary", value: "anniversary" },
+    { label: "Birthday", value: "birthday" },
+    { label: "Engagement", value: "engagement" },
+    { label: "Live Event", value: ServiceType.LIVE_EVENT },
+    { label: "Equipment Rental", value: ServiceType.RENTAL },
+    { label: "Studio", value: ServiceType.STUDIO },
+    { label: "Sound Test", value: ServiceType.SOUND_TEST },
+  ];
+
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialValues ?? defaultValues}
       validationSchema={BookingSchema}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           console.log(JSON.stringify(values, null, 2));
           setSubmitting(false);
-        }, 400);
+        }, 1000);
       }}
     >
       {({
@@ -140,7 +164,7 @@ export default function BookingForm({ initialValues = values }: FormProps) {
             <Select
               id="arrival_time"
               placeholder="Enter booking time"
-              isDisabled={initialValues.booking_date !== ""}
+              isDisabled={values?.booking_date === undefined}
               isClearable
               onChange={(newVal) => {
                 setFieldValue("arrival_time", newVal?.value);
@@ -168,20 +192,14 @@ export default function BookingForm({ initialValues = values }: FormProps) {
             <CreatableSelect
               id="type"
               placeholder="Enter event type"
-              isDisabled={initialValues.type !== ""}
               isClearable
+              value={typeOptions.find(
+                (val) => val.value === initialValues?.type
+              )}
+              isDisabled={initialValues?.type !== undefined}
               onChange={(newVal) => setFieldValue("type", newVal?.value ?? "")}
               onBlur={handleBlur}
-              options={[
-                { label: "Type", value: "" },
-                { label: "Anniversary", value: "anniversary" },
-                { label: "Birthday", value: "birthday" },
-                { label: "Engagement", value: "engagement" },
-                { label: "Live Event", value: "live-event" },
-                { label: "Equipment Rental", value: "rental" },
-                { label: "Studio", value: "studio" },
-                { label: "Sound Test", value: "sound-test" },
-              ]}
+              options={typeOptions}
               styles={{
                 control(base) {
                   return {
@@ -212,7 +230,7 @@ export default function BookingForm({ initialValues = values }: FormProps) {
             />
           </Field>
 
-          <div className="flex content-center">
+          <div className="mt-5 flex w-full justify-center">
             <Button
               type="submit"
               disabled={isSubmitting || !isValid}

@@ -1,7 +1,7 @@
-import { faLink, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import React from "react";
+
 import { api } from "~/utils/api";
 import ServiceCard from "./ServiceCard";
 
@@ -10,16 +10,9 @@ export default function ServiceSection() {
   return (
     <div className="xs:px-3 my-8 w-full md:px-10 lg:px-16">
       <div className="flex w-full px-3">
-        <b className="flex-1 text-2xl text-primary">Services</b>
+        <b className="flex-1 text-2xl text-primary">SERVICES</b>
         <div className="flex flex-1 justify-end">
-          <Link
-            href="/book-online/services"
-            title="Services"
-            className="inline-flex w-20 items-center gap-1 whitespace-nowrap text-sm text-secondary underline"
-          >
-            See more
-            <FontAwesomeIcon icon={faLink} size="xs" />
-          </Link>
+          {/* !TODO Filter by type*/}
         </div>
       </div>
 

@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 import NavMenu from "./NavMenu";
 
 export default function Header() {
-  const { data, status } = useSession();
+  const { data: sessionData, status } = useSession();
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined = undefined;
@@ -107,7 +107,7 @@ export default function Header() {
                     loader={(p) => `${p.src}`}
                     alt="avatar"
                     src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${
-                      data?.user.name ?? "avatar"
+                      sessionData?.user.name ?? "avatar"
                     }`}
                     width={100}
                     height={100}
@@ -126,14 +126,14 @@ export default function Header() {
                   </a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <a onClick={() => void signOut()}>Logout</a>
                 </li>
               </ul>
             </>
           ) : (
-            <Link href="/login" className="btn-ghost btn-sm btn">
+            <a onClick={() => void signIn()} className="btn-ghost btn-sm btn">
               Login
-            </Link>
+            </a>
           )}
         </div>
       </div>

@@ -8,8 +8,6 @@ import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -36,12 +34,7 @@ const Home: NextPage = () => {
         <Header />
         <HeroSection />
         <ServiceSection />
-        <div className={styles.showcaseContainer}>
-          <p className="text-center text-lg">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
-          <AuthShowcase />
-        </div>
+
         <Footer />
       </main>
     </>

@@ -4,7 +4,7 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { HeroSection } from "~/components/utils";
+import { Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 
 const Home: NextPage = () => {
@@ -33,6 +33,7 @@ const Home: NextPage = () => {
         <meta name="og:image" content="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <Header />
         <HeroSection />
         <ServiceSection />
         <div className={styles.showcaseContainer}>

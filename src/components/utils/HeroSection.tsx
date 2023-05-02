@@ -18,6 +18,7 @@ export default function HeroSection() {
       className="section bg-primary"
       button_variant="secondary"
       text_class="text-white"
+      title_class="text-transparent md:text-white"
       overlayImg={isSmallScreen ? bg1.src : undefined}
       button_action={() => void router.push("/book_online")}
     >

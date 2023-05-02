@@ -8,9 +8,11 @@ import Field from "./Field";
 import LoadingView from "./LoadingView";
 import NavMenu from "./NavMenu";
 import Header from "./Header";
+import Footer from "./Footer";
 
 export {
   Header,
+  Footer,
   Hero,
   HeroSection,
   ImageCarousel,

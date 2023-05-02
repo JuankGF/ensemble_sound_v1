@@ -4,7 +4,7 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { Header, HeroSection } from "~/components/utils";
+import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 
 const Home: NextPage = () => {
@@ -42,6 +42,7 @@ const Home: NextPage = () => {
           </p>
           <AuthShowcase />
         </div>
+        <Footer />
       </main>
     </>
   );

@@ -21,7 +21,7 @@ export default function SocialMedias({ iconSize = "2x" }: SocialMediasProps) {
         <FontAwesomeIcon
           icon={faFacebook as IconProp}
           size={iconSize}
-          className="cursor-pointer text-primary"
+          className="h-8 w-8 cursor-pointer text-primary hover:text-primary-focus"
         />
       </a>
       <a
@@ -33,7 +33,7 @@ export default function SocialMedias({ iconSize = "2x" }: SocialMediasProps) {
         <FontAwesomeIcon
           icon={faInstagram as IconProp}
           size={iconSize}
-          className="mx-1 cursor-pointer text-primary"
+          className="mx-1 h-8 w-8 cursor-pointer text-primary hover:text-primary-focus"
         />
       </a>
     </>

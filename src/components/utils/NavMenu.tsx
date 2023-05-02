@@ -45,7 +45,7 @@ export default function NavMenu({ linkClassName }: Props) {
           }`}
           href="/#about"
         >
-          About
+          About us
         </Link>
       </li>
       <li>

@@ -4,12 +4,10 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { HeroSection } from "~/components/utils";
+import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -33,14 +31,11 @@ const Home: NextPage = () => {
         <meta name="og:image" content="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <Header />
         <HeroSection />
         <ServiceSection />
-        <div className={styles.showcaseContainer}>
-          <p className="text-center text-lg">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
-          <AuthShowcase />
-        </div>
+
+        <Footer />
       </main>
     </>
   );

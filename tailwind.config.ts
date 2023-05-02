@@ -11,7 +11,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: colors.purple[900],
+          primary: "#573065",
           secondary: colors.purple[400],
           accent: colors.green[400],
           neutral: "#3d4451",

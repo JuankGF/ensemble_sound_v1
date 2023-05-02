@@ -28,7 +28,10 @@ export default function Header() {
             <NavMenu />
           </ul>
         </div>
-        <Link href="/" className="btn-ghost btn text-xl normal-case">
+        <Link
+          href="/"
+          className="rounded-sm text-xl normal-case hover:bg-slate-100/75"
+        >
           <Image
             src="/logo.png"
             alt="logo"
@@ -68,9 +71,9 @@ export default function Header() {
             <>
               <label
                 tabIndex={0}
-                className="btn-ghost btn-circle avatar btn m-0 w-10 p-0"
+                className="avatar m-0 w-10 cursor-pointer rounded-full p-0 ring-secondary hover:ring-2"
               >
-                <div className="rounded-full">
+                <div className="w-10 rounded-full">
                   <Image
                     loader={(p) => `${p.src}`}
                     alt="avatar"

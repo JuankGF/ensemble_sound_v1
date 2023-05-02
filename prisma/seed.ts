@@ -1,4 +1,5 @@
 import { type Prisma, PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
@@ -123,14 +124,86 @@ const techRider: Prisma.EquipmentCreateInput[] = [
 
 const serviceData: Prisma.ServiceCreateInput[] = [
   {
-    name: "",
-    description: "",
+    name: "Live Event",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
     type: "LIVE_EVENT",
+    estimatedPrice: 200,
     media: {
       create: {
-        name: "",
-        extension: "",
-        path: "",
+        name: "live_event",
+        extension: "jpeg",
+        path: "/media/live_event.jpeg",
+      },
+    },
+  },
+  {
+    name: "Concert",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
+    type: "LIVE_EVENT",
+    estimatedPrice: 800,
+    media: {
+      create: {
+        name: "concert",
+        extension: "jpeg",
+        path: "/media/concert.jpeg",
+      },
+    },
+  },
+  {
+    name: "Equipment Rental",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
+    type: "RENTAL",
+    estimatedPrice: 300,
+    media: {
+      create: {
+        name: "rental",
+        extension: "jpeg",
+        path: "/media/rental.jpeg",
+      },
+    },
+  },
+  {
+    name: "Recording",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
+    type: "STUDIO",
+    estimatedPrice: 250,
+    media: {
+      create: {
+        name: "studio",
+        extension: "jpeg",
+        path: "/media/recording.jpeg",
+      },
+    },
+  },
+  {
+    name: "Mixin",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
+    type: "STUDIO",
+    estimatedPrice: 600,
+    media: {
+      create: {
+        name: "studio",
+        extension: "jpeg",
+        path: "/media/mixing.jpeg",
+      },
+    },
+  },
+  {
+    name: "Sound Check",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed cursus.",
+    type: "SOUND_TEST",
+    estimatedPrice: 200,
+    media: {
+      create: {
+        name: "sound_check",
+        extension: "jpeg",
+        path: "/media/sound_check.jpg",
       },
     },
   },
@@ -139,6 +212,8 @@ const serviceData: Prisma.ServiceCreateInput[] = [
 async function main() {
   // Prisma queries
   await prisma.equipment.deleteMany();
+  await prisma.service.deleteMany();
+  await prisma.media.deleteMany();
 
   console.log(`Start DB seeding ...`);
   for (const u of userData) {
@@ -155,6 +230,10 @@ async function main() {
     console.log(
       `Created equipment ${equipment.name} with quantity: ${equipment.quantity}`
     );
+  }
+  for (const s of serviceData) {
+    const service = await prisma.service.create({ data: s });
+    console.log(`Created service ${service.name} of type: ${service.type}`);
   }
   console.log(`Seeding finished.`);
 }

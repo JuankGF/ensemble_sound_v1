@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,29 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.btn {
+  text-transform: initial;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type="date"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: "FontAwesome";
+  content: "\f133";
+  /* This is the calendar icon in FontAwesome */
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 0.5px;
+  right: 6px;
+  color: #999;
 }

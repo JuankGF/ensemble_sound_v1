@@ -3,13 +3,23 @@ import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { ServiceType } from "@prisma/client";
 
 export const serviceRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.service.findMany({
-      include: {
-        media: true,
-      },
-    });
-  }),
+  getAll: publicProcedure
+    .input(
+      z.object({
+        count: z.number().optional(),
+        distinct: z.enum(["type"]).optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.service.findMany({
+        include: {
+          media: true,
+        },
+        take: input.count,
+        distinct: input.distinct,
+        orderBy: [{ name: "desc" }],
+      });
+    }),
 
   getById: publicProcedure
     .input(
@@ -25,6 +35,31 @@ export const serviceRouter = createTRPCRouter({
         include: {
           media: true,
         },
+      });
+    }),
+
+  getByType: publicProcedure
+    .input(
+      z.object({
+        count: z.number().optional(),
+        types: z.array(z.nativeEnum(ServiceType)).optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.service.findMany({
+        where:
+          !input.types || !input.types.length
+            ? {}
+            : {
+                type: {
+                  in: input.types,
+                },
+              },
+        include: {
+          media: true,
+        },
+        take: input.count,
+        orderBy: [{ name: "desc" }],
       });
     }),
 

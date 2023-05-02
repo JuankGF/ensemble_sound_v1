@@ -27,7 +27,7 @@ export default function ServiceSection() {
   if (isLoading) return <LoadingView />;
 
   return (
-    <div className="xs:px-3 my-8 w-full md:px-10 lg:px-16">
+    <div id="services" className="xs:px-3 my-8 w-full md:px-10 lg:px-16">
       <div className="flex w-full items-center px-3">
         <b className="flex-1 text-2xl text-primary">SERVICES</b>
         <div className="flex flex-1 justify-end gap-2">

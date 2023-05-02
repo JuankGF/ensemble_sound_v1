@@ -6,6 +6,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
+import { TestimonialsSection } from "~/components/testimonials";
 
 const Home: NextPage = () => {
   return (
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
         <Header />
         <HeroSection />
         <ServiceSection />
-
+        <TestimonialsSection />
         <Footer />
       </main>
     </>

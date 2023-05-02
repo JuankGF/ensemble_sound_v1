@@ -76,7 +76,7 @@ export default function Header() {
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="dropdown dropdown-end">
+        {/* <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn-ghost btn-circle btn">
             <div className="indicator">
               <FontAwesomeIcon
@@ -94,7 +94,7 @@ export default function Header() {
               <span className="text-lg font-bold">8 Notifications</span>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="dropdown dropdown-end">
           {status === "authenticated" ? (
             <>

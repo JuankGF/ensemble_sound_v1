@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
@@ -11,8 +11,34 @@ import NavMenu from "./NavMenu";
 export default function Header() {
   const { data, status } = useSession();
 
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined = undefined;
+    let scroll = 0;
+    window.onscroll = () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+
+      timeout = setTimeout(() => {
+        const header = document.getElementById("app-header");
+        if (scroll >= window.scrollY && window.scrollY > 10) {
+          header?.classList.remove("-top-48");
+          header?.classList.add("sticky", "top-0");
+        } else {
+          header?.classList.remove("sticky", "top-0");
+          header?.classList.add("-top-48");
+        }
+
+        scroll = window.scrollY;
+      }, 10);
+    };
+  }, []);
+
   return (
-    <div className="w-100 navbar relative bg-base-100">
+    <div
+      id="app-header"
+      className="w-100 navbar -top-48 z-50 bg-base-100 transition-all duration-700 ease-in-out"
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn-ghost btn lg:hidden">

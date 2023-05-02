@@ -21,7 +21,10 @@ export default function Header() {
 
       timeout = setTimeout(() => {
         const header = document.getElementById("app-header");
-        if (scroll >= window.scrollY && window.scrollY > 10) {
+        if (
+          scroll >= window.scrollY &&
+          (window.scrollY > 10 || window.scrollY === 0)
+        ) {
           header?.classList.remove("-top-48");
           header?.classList.add("sticky", "top-0");
         } else {

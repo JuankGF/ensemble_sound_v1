@@ -28,7 +28,7 @@ export default function Hero({
   if (overlayImg)
     return (
       <div
-        className="hero min-h-fit"
+        className="hero min-h-screen md:min-h-[20rem]"
         style={{
           backgroundImage: `url("${overlayImg}")`,
         }}

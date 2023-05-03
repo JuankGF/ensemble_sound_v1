@@ -10,7 +10,7 @@ type CarouselProps = {
 export default function ImageCarousel({
   image_sources,
   className,
-  indicators = true,
+  indicators = false,
 }: CarouselProps) {
   return (
     <div>
@@ -38,7 +38,7 @@ export default function ImageCarousel({
           {image_sources.map((image, index) => (
             <a
               href={`#item${index + 1}`}
-              className="h-2 w-6 rounded bg-primary hover:bg-secondary-focus"
+              className="h-2 w-6 rounded bg-primary focus-within:bg-secondary-focus hover:bg-secondary-focus"
               key={`${image.toString()}-${index}`}
             ></a>
           ))}

@@ -30,7 +30,7 @@ export const testimonialRouter = createTRPCRouter({
         where: {
           authorId: input.author,
         },
-        orderBy: { createdAt: "desc" },
+        orderBy: { rating: "desc" },
       });
     }),
 
@@ -46,7 +46,7 @@ export const testimonialRouter = createTRPCRouter({
         take: input.count,
         distinct: input.distinct,
         include: { author: true },
-        orderBy: { createdAt: "desc" },
+        orderBy: { rating: "desc" },
       });
     }),
 

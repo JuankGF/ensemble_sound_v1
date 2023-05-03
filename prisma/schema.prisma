@@ -78,11 +78,13 @@ model Service {
 }
 
 model Testimonial {
-    id       String @id @default(cuid())
-    author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    authorId String @map("author_id")
-    text     String
-    rating   Float  @default(5)
+    id        String    @id @default(cuid())
+    author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    authorId  String    @map("author_id")
+    text      String
+    rating    Float     @default(5)
+    createdAt DateTime? @default(now()) @map("created_at")
+    updatedAt DateTime? @updatedAt @map("updated_at")
 }
 
 model Event {

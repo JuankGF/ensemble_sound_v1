@@ -34,7 +34,7 @@ export default function Footer() {
           About us
         </a>
         <Link className="link-hover link" href="/book_online">
-          Contact
+          Contact us
         </Link>
         <a className="link-hover link" href="#events">
           Next Events

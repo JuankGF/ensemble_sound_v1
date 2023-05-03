@@ -11,7 +11,7 @@ type HeroProps = {
   id?: string;
   overlayImg?: string;
   button_label?: string;
-  button_action: () => void;
+  button_action?: () => void;
 };
 
 export default function Hero({
@@ -40,9 +40,11 @@ export default function Hero({
               Ensemble Sound
             </h1>
             <p className="py-6 text-white">{text}</p>
-            <Button variant={button_variant} onClick={button_action}>
-              {button_label}
-            </Button>
+            {button_action && (
+              <Button variant={button_variant} onClick={button_action}>
+                {button_label}
+              </Button>
+            )}
           </div>
         </div>
       </div>

@@ -34,15 +34,13 @@ export default function ImageCarousel({
         ))}
       </div>
       {indicators && (
-        <div className="flex w-full -translate-y-10 justify-center gap-2 py-2">
+        <div className="flex w-full -translate-y-8 justify-center gap-2 py-2">
           {image_sources.map((image, index) => (
             <a
               href={`#item${index + 1}`}
-              className="btn-primary btn-xs btn"
+              className="h-2 w-6 rounded bg-primary hover:bg-secondary-focus"
               key={`${image.toString()}-${index}`}
-            >
-              {index + 1}
-            </a>
+            ></a>
           ))}
         </div>
       )}

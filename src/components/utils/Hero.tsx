@@ -11,7 +11,7 @@ type HeroProps = {
   id?: string;
   overlayImg?: string;
   button_label?: string;
-  button_action: () => void;
+  button_action?: () => void;
 };
 
 export default function Hero({
@@ -19,7 +19,8 @@ export default function Hero({
   children,
   className,
   overlayImg,
-  title_class = "text-white",
+  title_class = "text-5xl text-white",
+  text_class = "text-white",
   button_variant = "primary",
   text = "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist",
   button_label = "Book a Session",
@@ -39,10 +40,16 @@ export default function Hero({
             <h1 className={`text-5xl font-bold ${title_class}`}>
               Ensemble Sound
             </h1>
-            <p className="py-6 text-white">{text}</p>
-            <Button variant={button_variant} onClick={button_action}>
-              {button_label}
-            </Button>
+            <p
+              className={`py-6 first-letter:align-sub first-letter:text-2xl first-letter:font-medium first-letter:text-secondary ${text_class}`}
+            >
+              {text}
+            </p>
+            {button_action && (
+              <Button variant={button_variant} onClick={button_action}>
+                {button_label}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -53,13 +60,17 @@ export default function Hero({
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="max-w-lg rounded-lg align-middle">{children}</div>
         <div>
-          <h1 className={`text-5xl font-bold ${title_class}`}>
-            Ensemble Sound
-          </h1>
-          <p className="py-6 text-white">{text}</p>
-          <Button variant={button_variant} onClick={button_action}>
-            {button_label}
-          </Button>
+          <h1 className={`font-bold ${title_class}`}>Ensemble Sound</h1>
+          <p
+            className={`py-6 first-letter:align-sub first-letter:text-2xl first-letter:font-medium first-letter:text-secondary ${text_class}`}
+          >
+            {text}
+          </p>
+          {button_action && (
+            <Button variant={button_variant} onClick={button_action}>
+              {button_label}
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -1,28 +1,11 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+
+import { useRouteHash } from "~/hooks/useRouteHash";
 
 type Props = { linkClassName?: string };
 
 export default function NavMenu({ linkClassName }: Props) {
-  const router = useRouter();
-  const [activeRoute, setActiveRoute] = useState("/");
-
-  const isActive = (route: string) => {
-    return activeRoute === route;
-  };
-
-  useEffect(() => {
-    const onHashChangeStart = (url: string) => {
-      setActiveRoute(url);
-    };
-
-    router.events.on("hashChangeStart", onHashChangeStart);
-
-    return () => {
-      router.events.off("hashChangeStart", onHashChangeStart);
-    };
-  }, [router.events]);
+  const { isActiveRoute } = useRouteHash();
 
   const linkDefaultClass =
     "btm-nav-xs transition-all duration-500 hover:bg-slate-100/75 focus:bg-slate-100";
@@ -31,7 +14,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/") ? "btn-link bg-slate-100 text-secondary" : ""
+            isActiveRoute("/") ? "btn-link bg-slate-100 text-secondary" : ""
           }`}
           href={"/"}
         >
@@ -41,7 +24,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/#about") ? "bg-slate-200 text-secondary" : ""
+            isActiveRoute("/#about") ? "bg-slate-200 text-secondary" : ""
           }`}
           href="/#about"
         >
@@ -51,7 +34,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/#services") ? "bg-slate-200 text-secondary" : ""
+            isActiveRoute("/#services") ? "bg-slate-200 text-secondary" : ""
           }`}
           href={"/#services"}
         >
@@ -61,7 +44,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/#equipments") ? "bg-slate-200 text-secondary" : ""
+            isActiveRoute("/#equipments") ? "bg-slate-200 text-secondary" : ""
           }`}
           href={"/#equipments"}
         >
@@ -71,7 +54,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/#events") ? "bg-slate-200 text-secondary" : ""
+            isActiveRoute("/#events") ? "bg-slate-200 text-secondary" : ""
           }`}
           href={"/#events"}
         >
@@ -81,7 +64,7 @@ export default function NavMenu({ linkClassName }: Props) {
       <li>
         <Link
           className={`${linkDefaultClass} ${linkClassName ?? ""} ${
-            isActive("/book_online") ? "bg-slate-200 text-secondary" : ""
+            isActiveRoute("/book_online") ? "bg-slate-200 text-secondary" : ""
           }`}
           href={"/book_online"}
         >

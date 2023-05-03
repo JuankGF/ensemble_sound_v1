@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 import { TestimonialsSection } from "~/components/testimonials";
+import About from "~/components/About";
 
 const Home: NextPage = () => {
   return (
@@ -36,6 +37,7 @@ const Home: NextPage = () => {
         <HeroSection />
         <ServiceSection />
         <TestimonialsSection />
+        <About />
         <Footer />
       </main>
     </>

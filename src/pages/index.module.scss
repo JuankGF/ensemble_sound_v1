@@ -110,3 +110,9 @@ $secondary-color: rgb(154, 57, 250);
 .loginButton:hover {
   background-color: $primary-color-focus;
 }
+
+li.paging-item {
+  .paging-dot {
+    @apply text-primary hover:text-secondary;
+  }
+}

@@ -16,9 +16,10 @@ export default function TestimonialCard({
       subtitle={authorEmail}
       text={text}
       image={image}
-      imageClass="rounded-full w-16"
+      imageClass="rounded-full w-16 ml-3"
+      layoutHorizontal
     >
-      <div className="rating">
+      <div className="rating justify-start">
         {Array.from([1, 2, 3, 4, 5]).map((index) => (
           <input
             key={index}

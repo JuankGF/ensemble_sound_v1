@@ -1,7 +1,14 @@
 import React from "react";
-import { type Testimonial } from "@prisma/client";
 
 import { Card } from "../utils";
+
+type Props = {
+  text: string;
+  rating: number;
+  authorName: string;
+  authorEmail: string;
+  image: string;
+};
 
 export default function TestimonialCard({
   rating,
@@ -9,7 +16,7 @@ export default function TestimonialCard({
   authorEmail,
   authorName,
   image,
-}: Testimonial & { authorName: string; authorEmail: string; image: string }) {
+}: Props) {
   return (
     <Card
       title={authorName}

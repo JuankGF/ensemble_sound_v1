@@ -8,7 +8,7 @@ import { LoadingView } from "../utils";
 
 export default function TestimonialsSection() {
   const { data: testimonials, isLoading } = api.testimonials.getAll.useQuery({
-    count: 4,
+    count: 3,
     distinct: "authorId",
   });
 
@@ -31,19 +31,11 @@ export default function TestimonialsSection() {
           No testimonials found
         </div>
       ) : (
-        <div className="row-auto mt-6 grid w-full gap-3 px-8  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+        <div className="row-auto mt-6 grid w-full gap-3 px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
           {testimonials?.map(
-            ({
-              authorId,
-              id,
-              rating,
-              text,
-              author: { email, image, name },
-            }) => (
+            ({ id, rating, text, author: { email, image, name } }) => (
               <TestimonialCard
-                id={id}
                 key={id}
-                authorId={authorId}
                 text={text}
                 rating={rating}
                 authorEmail={email ?? ""}

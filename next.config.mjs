@@ -23,8 +23,12 @@ const config = {
       {
         protocol: "https",
         hostname: "api.dicebear.com",
-        port: "",
         pathname: "/5.x/fun-emoji/svg**",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "/u/**",
       },
     ],
   },

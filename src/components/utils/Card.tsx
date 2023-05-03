@@ -8,10 +8,12 @@ import Button from "./Button";
 type CardProps = {
   title: string;
   text: string;
+  subtitle?: string;
   image?: string | StaticImageData;
   actionLabel?: string;
   actionIcon?: IconDefinition;
   layoutHorizontal?: boolean;
+  imageClass?: string;
   callToAction?: () => void;
 };
 
@@ -19,15 +21,17 @@ export default function Card({
   title,
   image,
   text,
+  subtitle,
   actionIcon,
   actionLabel,
   layoutHorizontal,
   children,
   callToAction,
+  imageClass = "w-full object-cover",
 }: PropsWithChildren<CardProps>) {
   return (
     <div
-      className={`card-compact min-w-80 card bg-base-100 shadow-xl${
+      className={`min-w-80 card-compact card bg-base-100 shadow-xl${
         layoutHorizontal ? " card-side" : ""
       }`}
     >
@@ -36,7 +40,7 @@ export default function Card({
           <Image
             src={image}
             alt={title}
-            className="w-full object-cover"
+            className={imageClass}
             width={150}
             height={150}
           />
@@ -44,6 +48,9 @@ export default function Card({
       )}
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
+        {subtitle && (
+          <h3 className="card-title text-sm text-slate-400">{subtitle}</h3>
+        )}
         <p>{text}</p>
         {children}
         {callToAction && (

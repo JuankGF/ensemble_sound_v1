@@ -30,6 +30,23 @@ export const testimonialRouter = createTRPCRouter({
         where: {
           authorId: input.author,
         },
+        orderBy: { rating: "desc" },
+      });
+    }),
+
+  getAll: publicProcedure
+    .input(
+      z.object({
+        count: z.number().optional(),
+        distinct: z.enum(["authorId"]).optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.testimonial.findMany({
+        take: input.count,
+        distinct: input.distinct,
+        include: { author: true },
+        orderBy: { rating: "desc" },
       });
     }),
 

@@ -9,7 +9,7 @@ export default function Footer() {
 
   if (isMobile)
     return (
-      <footer className="footer mt-5 grid grid-cols-3 items-center bg-secondary-content/10 p-4 text-primary">
+      <footer className="footer grid grid-cols-3 items-center bg-secondary-content/10 p-4 text-primary">
         <div className="col-span-2 grid-flow-col items-center">
           <Image src="/logo192.png" width={100} height={100} alt="logo" />
           <p>Copyright © EnsembleSound 2023 - All right reserved.</p>
@@ -20,7 +20,7 @@ export default function Footer() {
       </footer>
     );
   return (
-    <footer className="footer mt-6 gap-y-4 rounded bg-secondary-content/10 p-6 text-base-content">
+    <footer className="footer gap-y-4 rounded bg-secondary-content/10 p-6 text-base-content">
       <div>
         <Image src="/logo512.png" width={100} height={100} alt="logo" />
         <p>

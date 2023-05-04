@@ -21,7 +21,7 @@ export default function EventsSection() {
 
   return (
     <section
-      id="services"
+      id="events"
       className="xs:px-3 my-8 min-h-[12rem] w-full md:px-10 lg:px-16"
     >
       <div className="flex w-full flex-col items-center px-3 md:flex">

@@ -41,7 +41,7 @@ export default function ImageCarousel({
           key={`${image.toString()}-${index}`}
         >
           <Image
-            className={`w-full rounded-xl object-cover ${imageClass ?? ""}`}
+            className={`w-full object-cover ${imageClass ?? ""}`}
             src={image}
             alt={`${index + 1} slide`}
           />

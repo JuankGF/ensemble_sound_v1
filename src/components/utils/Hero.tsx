@@ -1,4 +1,5 @@
 import React, { type PropsWithChildren } from "react";
+import Image from "next/image";
 
 import Button, { type ButtonVariant } from "./Button";
 
@@ -22,29 +23,30 @@ export default function Hero({
   title_class = "text-5xl text-white",
   text_class = "text-white",
   button_variant = "primary",
-  text = "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist",
+  text = "",
   button_label = "Book a Session",
   button_action,
 }: PropsWithChildren<HeroProps>) {
   if (overlayImg)
     return (
-      <section
-        className="hero min-h-screen md:min-h-[20rem]"
-        style={{
-          backgroundImage: `url("${overlayImg}")`,
-        }}
-      >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className={`text-5xl font-bold ${title_class}`}>
+      <section className={`hero relative ${className ?? ""}`}>
+        <div className="hero-overlay relative h-full w-full rounded-lg bg-opacity-60 align-middle">
+          {children}
+        </div>
+        <div className="hero-content z-20 flex-col rounded-lg bg-primary-focus/70 text-center text-neutral-content md:flex-row-reverse md:text-left">
+          <div className="hidden md:flex">
+            <Image
+              alt="logo"
+              src={"/logo192.png"}
+              width={200}
+              height={200}
+            ></Image>
+          </div>
+          <div className="max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+            <h1 className={`text-2xl font-bold md:text-7xl ${title_class}`}>
               Ensemble Sound
             </h1>
-            <p
-              className={`py-6 first-letter:align-sub first-letter:text-2xl first-letter:font-medium first-letter:text-secondary ${text_class}`}
-            >
-              {text}
-            </p>
+            <p className={`py-6 ${text_class}`}>{text}</p>
             {button_action && (
               <Button variant={button_variant} onClick={button_action}>
                 {button_label}
@@ -64,11 +66,7 @@ export default function Hero({
         <div className="max-w-lg rounded-lg align-middle">{children}</div>
         <div>
           <h1 className={`font-bold ${title_class}`}>Ensemble Sound</h1>
-          <p
-            className={`py-6 first-letter:align-sub first-letter:text-2xl first-letter:font-medium first-letter:text-secondary ${text_class}`}
-          >
-            {text}
-          </p>
+          <p className={`py-6 ${text_class}`}>{text}</p>
           {button_action && (
             <Button variant={button_variant} onClick={button_action}>
               {button_label}

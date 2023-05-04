@@ -15,8 +15,14 @@ export default function EquipmentsSection() {
       id="equipments"
       className="xs:px-3 w-full bg-primary py-8 md:px-10 lg:px-16"
     >
-      <div className="block w-full items-center px-3 md:flex">
-        <b className="flex-1 text-2xl text-white">EQUIPMENTS</b>
+      <div className="mb-8 flex w-full flex-col items-center px-3 text-center md:flex">
+        <b className="flex-1 text-2xl text-white">
+          Browse our tech stock and find what you need
+        </b>
+        <p className="text-white">
+          Top tech rider for any kind of event. Rent our equipments and enjoy
+          the best quality
+        </p>
       </div>
       {equipmentsByType?.length === 0 ? (
         <div className="flex-div flex w-full items-center text-xl font-semibold text-white">
@@ -31,7 +37,7 @@ export default function EquipmentsSection() {
           {equipmentsByType.map(({ equipments, type }, index) => (
             <div
               key={type}
-              className={`card card-compact w-full justify-center rounded-none bg-transparent text-white ${
+              className={`card-compact card w-full justify-center rounded-none bg-transparent text-white ${
                 index === equipmentsByType.length - 1 && (index + 1) % 2 !== 0
                   ? "md:col-span-full lg:col-start-2 lg:col-end-3"
                   : ""

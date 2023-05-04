@@ -9,6 +9,7 @@ import { ServiceSection } from "~/components/services";
 import { TestimonialsSection } from "~/components/testimonials";
 import About from "~/components/About";
 import { EquipmentsSection } from "~/components/equipments";
+import { EventsSection } from "~/components/events";
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
         <TestimonialsSection />
         <About />
         <EquipmentsSection />
+        <EventsSection />
       </main>
       <Footer />
     </>

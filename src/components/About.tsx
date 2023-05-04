@@ -12,6 +12,7 @@ export default function About() {
       className="section bg-white px-3 md:px-10 lg:px-16"
       text_class="text-primary"
       title_class="text-primary text-3xl md:text-center lg:text-left"
+      id="about"
     >
       <ImageCarousel
         image_sources={[banner1, banner2]}

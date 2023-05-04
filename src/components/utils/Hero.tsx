@@ -28,7 +28,7 @@ export default function Hero({
 }: PropsWithChildren<HeroProps>) {
   if (overlayImg)
     return (
-      <div
+      <section
         className="hero min-h-screen md:min-h-[20rem]"
         style={{
           backgroundImage: `url("${overlayImg}")`,
@@ -52,11 +52,14 @@ export default function Hero({
             )}
           </div>
         </div>
-      </div>
+      </section>
     );
 
   return (
-    <div id={id} className={`hero min-h-fit bg-base-200 ${className ?? ""}`}>
+    <section
+      id={id}
+      className={`hero min-h-fit bg-base-200 ${className ?? ""}`}
+    >
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="max-w-lg rounded-lg align-middle">{children}</div>
         <div>
@@ -73,6 +76,6 @@ export default function Hero({
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -15,7 +15,7 @@ export default function TestimonialsSection() {
   if (isLoading) return <LoadingView />;
 
   return (
-    <div
+    <section
       id="testimonials"
       className="xs:px-3 w-full bg-primary py-8 md:px-10 lg:px-16"
     >
@@ -46,6 +46,6 @@ export default function TestimonialsSection() {
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 }

@@ -11,7 +11,7 @@ export default function EquipmentsSection() {
   if (isLoading) return <LoadingView />;
 
   return (
-    <div
+    <section
       id="equipments"
       className="xs:px-3 w-full bg-primary py-8 md:px-10 lg:px-16"
     >
@@ -31,7 +31,7 @@ export default function EquipmentsSection() {
           {equipmentsByType.map(({ equipments, type }, index) => (
             <div
               key={type}
-              className={`card-compact card w-full justify-center rounded-none bg-transparent text-white ${
+              className={`card card-compact w-full justify-center rounded-none bg-transparent text-white ${
                 index === equipmentsByType.length - 1 && (index + 1) % 2 !== 0
                   ? "md:col-span-full lg:col-start-2 lg:col-end-3"
                   : ""
@@ -72,6 +72,6 @@ export default function EquipmentsSection() {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }

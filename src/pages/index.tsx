@@ -8,6 +8,7 @@ import { Footer, Header, HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 import { TestimonialsSection } from "~/components/testimonials";
 import About from "~/components/About";
+import { EquipmentsSection } from "~/components/equipments";
 
 const Home: NextPage = () => {
   return (
@@ -38,6 +39,7 @@ const Home: NextPage = () => {
         <ServiceSection />
         <TestimonialsSection />
         <About />
+        <EquipmentsSection />
         <Footer />
       </main>
     </>

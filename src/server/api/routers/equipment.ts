@@ -6,13 +6,22 @@ import * as trpc from "@trpc/server";
 import { datesDiffInDays } from "~/utils/datesDiffInDays";
 
 export const equipmentRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.equipment.findMany({
-      include: {
-        media: true,
-      },
-    });
-  }),
+  getAll: publicProcedure
+    .input(
+      z.object({
+        type: z.nativeEnum(EquipmentType).optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.equipment.findMany({
+        where: {
+          type: input.type,
+        },
+        orderBy: {
+          type: "desc",
+        },
+      });
+    }),
 
   create: protectedProcedure
     .input(

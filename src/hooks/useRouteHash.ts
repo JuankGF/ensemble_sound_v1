@@ -10,16 +10,18 @@ export const useRouteHash = () => {
   };
 
   useEffect(() => {
-    const onHashChangeStart = (url: string) => {
+    const onRouteChangeStart = (url: string) => {
       setActiveRoute(url);
     };
 
-    router.events.on("hashChangeStart", onHashChangeStart);
+    router.events.on("hashChangeStart", onRouteChangeStart);
+    router.events.on("routeChangeStart", onRouteChangeStart);
 
     return () => {
-      router.events.off("hashChangeStart", onHashChangeStart);
+      router.events.off("hashChangeStart", onRouteChangeStart);
+      router.events.off("routeChangeStart", onRouteChangeStart);
     };
   }, [router.events]);
 
-  return { isActiveRoute: isActive };
+  return { isActiveRoute: isActive, pathname: router.pathname };
 };

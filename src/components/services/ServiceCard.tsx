@@ -21,7 +21,8 @@ export default function ServiceCard({ service, mediaPath }: Props) {
       callToAction={() => void router.push(`/book_online/${service.id}`)}
     >
       <div className="badge-outline badge gap-2">
-        <b>Price</b> <p className="font-semibold">${service.estimatedPrice}</p>
+        <b>Starts at</b>{" "}
+        <p className="font-semibold">${service.estimatedPrice}</p>
       </div>
     </Card>
   );

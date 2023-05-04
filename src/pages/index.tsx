@@ -4,7 +4,7 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
-import { Footer, Header, HeroSection } from "~/components/utils";
+import { HeroSection } from "~/components/utils";
 import { ServiceSection } from "~/components/services";
 import { TestimonialsSection } from "~/components/testimonials";
 import About from "~/components/About";
@@ -17,7 +17,6 @@ const Home: NextPage = () => {
       <Head>
         <title>Ensemble Sound</title>
       </Head>
-      <Header />
       <main className={styles.main}>
         <HeroSection />
         <ServiceSection />
@@ -26,7 +25,6 @@ const Home: NextPage = () => {
         <EquipmentsSection />
         <EventsSection />
       </main>
-      <Footer />
     </>
   );
 };

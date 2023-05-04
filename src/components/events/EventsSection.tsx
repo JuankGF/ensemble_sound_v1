@@ -21,12 +21,12 @@ export default function EventsSection() {
 
   return (
     <section
-      id="services"
+      id="events"
       className="xs:px-3 my-8 min-h-[12rem] w-full md:px-10 lg:px-16"
     >
-      <div className="flex w-full flex-col items-center px-3 md:flex">
+      <div className="mb-8 flex w-full flex-col items-center px-3 text-center md:flex">
         <b className="flex-1 text-center text-2xl text-primary">
-          Join us soon and enjoy the sound...
+          Join us soon and enjoy the sound
         </b>
         <p>Assist to our public events and get fun with the music</p>
       </div>

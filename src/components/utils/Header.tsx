@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header
       id="app-header"
-      className="w-100 navbar -top-48 z-50 bg-base-100 shadow-lg transition-all duration-700 ease-in-out"
+      className="w-100 navbar -top-48 z-50 bg-base-100 shadow-sm transition-all duration-700 ease-in-out"
     >
       <div className="navbar-start">
         <div className="dropdown">

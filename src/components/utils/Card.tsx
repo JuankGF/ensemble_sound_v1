@@ -31,7 +31,7 @@ export default function Card({
 }: PropsWithChildren<CardProps>) {
   return (
     <div
-      className={`min-w-80 card-compact card bg-base-100 shadow-xl${
+      className={`min-w-80 card-compact card bg-base-100 shadow-lg transition-shadow duration-500 hover:shadow-2xl ease-in-out${
         layoutHorizontal ? " card-side" : ""
       }`}
     >

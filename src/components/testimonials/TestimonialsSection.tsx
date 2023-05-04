@@ -17,10 +17,13 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="xs:px-3 w-full bg-primary py-8 md:px-10 lg:px-16"
+      className="xs:px-3 min-h-[12rem] w-full bg-primary py-8 md:px-10 lg:px-16"
     >
-      <div className="block w-full items-center px-3 md:flex">
-        <b className="flex-1 text-2xl text-white">TESTIMONIALS</b>
+      <div className="mb-8 flex w-full flex-col items-center px-3 text-center md:flex">
+        <b className="flex-1 text-2xl text-white">
+          Proudly making people happy with our services
+        </b>
+        <p className="text-white">See our customers testimonials</p>
       </div>
       {testimonials?.length === 0 ? (
         <div className="flex w-full flex-col items-center text-xl font-semibold text-white">

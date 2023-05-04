@@ -28,14 +28,20 @@ export default function ServiceSection() {
 
   return (
     <section id="services" className="xs:px-3 my-8 w-full md:px-10 lg:px-16">
-      <div className="block w-full items-center px-3 md:flex">
-        <b className="flex-1 text-2xl text-primary">SERVICES</b>
-        <div className="mt-2 flex flex-1 justify-end gap-2 md:mt-0">
+      <div className="mb-8 flex w-full flex-col items-center px-3 text-center md:flex">
+        <b className="flex-1 text-2xl text-primary">
+          Discover what we got to offer
+        </b>
+        <p>
+          Start putting your ideas into action with EnsembleSound products and
+          services
+        </p>
+        <div className="mt-5 flex flex-1 justify-end gap-2 md:mt-3">
           {Object.keys(ServiceType).map((type) => (
             <div
               key={type}
               title="Filter by"
-              className={`badge-primary badge cursor-pointer py-1 lowercase ${
+              className={`badge-primary badge cursor-pointer py-1 lowercase transition-colors duration-300 ease-in-out hover:bg-primary-focus hover:text-white ${
                 activeFilters?.includes(type as ServiceType)
                   ? ""
                   : "badge-outline"

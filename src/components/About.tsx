@@ -11,13 +11,13 @@ export default function About() {
       Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."
       className="section bg-white px-3 md:px-10 lg:px-16"
       text_class="text-primary"
-      title_class="text-primary text-3xl md:text-center lg:text-left"
+      title_class="text-primary text-3xl text-center lg:text-left"
       id="about"
     >
       <ImageCarousel
         image_sources={[banner1, banner2]}
         className="h-fit max-h-72 w-12"
-        imageClass="h-64"
+        imageClass="h-64 rounded-xl"
         vertical
       />
     </Hero>

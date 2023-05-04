@@ -11,6 +11,9 @@ export const eventRouter = createTRPCRouter({
     return ctx.prisma.event.findMany({
       where: {
         isPublic: true,
+        date: {
+          gte: new Date(),
+        },
       },
     });
   }),

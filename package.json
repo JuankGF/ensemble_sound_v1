@@ -25,6 +25,7 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "add-to-calendar-button-react": "^2.2.3",
     "bootstrap": "^5.2.3",
     "daisyui": "^2.51.6",
     "date-fns": "^2.29.3",

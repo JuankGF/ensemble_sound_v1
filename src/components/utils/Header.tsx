@@ -38,9 +38,9 @@ export default function Header() {
   }, []);
 
   return (
-    <div
+    <header
       id="app-header"
-      className="w-100 navbar -top-48 z-50 bg-base-100 transition-all duration-700 ease-in-out"
+      className="w-100 navbar -top-48 z-50 bg-base-100 shadow-lg transition-all duration-700 ease-in-out"
     >
       <div className="navbar-start">
         <div className="dropdown">
@@ -137,6 +137,6 @@ export default function Header() {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 }

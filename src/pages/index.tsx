@@ -15,33 +15,16 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Ensemble Sound</title>
-        <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#FFFFF" />
-        <meta name="author" content="Ensemble Sound" />
-        <meta
-          name="description"
-          content="Home web of Ensemble Sound audio and sound company."
-        />
-        <link rel="apple-touch-icon" href="/logo192.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="og:title" content="Ensemble Sound" />
-        <meta
-          name="og:description"
-          content="Home web of Ensemble Sound audio and sound company"
-        />
-        <meta name="og:image" content="/favicon.ico" />
       </Head>
+      <Header />
       <main className={styles.main}>
-        <Header />
         <HeroSection />
         <ServiceSection />
         <TestimonialsSection />
         <About />
         <EquipmentsSection />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 };

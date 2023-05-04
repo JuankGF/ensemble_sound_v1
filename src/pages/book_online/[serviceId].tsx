@@ -19,7 +19,7 @@ export default function BookService() {
   if (isLoading) return <LoadingView />;
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="relative mb-3 mt-8 flex justify-between text-center">
         <FontAwesomeIcon
           icon={faArrowAltCircleLeft}

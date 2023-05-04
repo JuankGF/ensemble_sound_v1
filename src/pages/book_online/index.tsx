@@ -7,7 +7,7 @@ import BookingForm from "~/components/booking/BookingForm";
 export default function BookOnline() {
   const router = useRouter();
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="relative mb-3 mt-8 flex justify-between text-center">
         <FontAwesomeIcon
           icon={faArrowAltCircleLeft}

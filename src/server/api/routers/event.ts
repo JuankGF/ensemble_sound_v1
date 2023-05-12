@@ -19,7 +19,17 @@ export const eventRouter = createTRPCRouter({
   }),
 
   getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.event.findMany();
+    return ctx.prisma.event.findMany({
+      where: {
+        date: { gte: new Date() },
+      },
+      select: {
+        date: true,
+        isPublic: true,
+        isSynchronized: true,
+        name: true,
+      },
+    });
   }),
 
   getAllPrivate: protectedProcedure.query(({ ctx }) => {
@@ -29,6 +39,20 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+
+  getByDate: publicProcedure
+    .input(
+      z.object({
+        date: z.date(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.event.findFirst({
+        where: {
+          date: { in: input.date },
+        },
+      });
+    }),
 
   create: protectedProcedure
     .input(

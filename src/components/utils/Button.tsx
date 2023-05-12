@@ -37,11 +37,11 @@ export default function Button({
   type = "button",
   variant = "primary",
 }: PropsWithChildren<ButtonProps>) {
-  const shapeClass = shape ? ` btn-${shape} ` : "";
-  const sizeClass = size ? `btn-${size} ` : "";
-  const outlineClass = outline ? `btn-outline ` : "";
-  const loadingState = loading ? `btn-loading ` : "";
-  const glassClass = glass ? `btn-glass ` : "";
+  const shapeClass = shape ? `btn-${shape} ` : "";
+  const sizeClass = size ? ` btn-${size}` : "";
+  const outlineClass = outline ? ` btn-outline` : "";
+  const loadingState = loading ? ` btn-loading` : "";
+  const glassClass = glass ? ` btn-glass` : "";
 
   return (
     <button

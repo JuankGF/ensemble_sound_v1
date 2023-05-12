@@ -54,6 +54,9 @@ export default function BookingForm({ initialValues }: FormProps) {
     { label: "Sound Test", value: ServiceType.SOUND_TEST },
   ];
 
+  const inputClass =
+    "input-bordered input input-sm w-full max-w-full px-2 py-1";
+
   return (
     <Formik
       initialValues={initialValues ?? defaultValues}
@@ -89,7 +92,9 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="name"
               type="text"
               placeholder="Enter name"
-              className="input-bordered input input-sm w-full max-w-full"
+              className={`${inputClass} ${
+                touched.name && errors.name ? "border-error" : ""
+              }`}
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -107,7 +112,9 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="email"
               type="email"
               placeholder="Enter email"
-              className="input-bordered input input-sm w-full max-w-full"
+              className={`${inputClass} ${
+                touched.email && errors.email ? "border-error" : ""
+              }`}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -124,7 +131,7 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="phone"
               type="tel"
               placeholder="Enter phone number"
-              className="input-bordered input input-sm w-full max-w-full px-2 py-1"
+              className={inputClass}
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -187,7 +194,9 @@ export default function BookingForm({ initialValues }: FormProps) {
             <textarea
               id="description"
               placeholder="Enter a description"
-              className="input-bordered input input-sm h-14 w-full max-w-full"
+              className={`input-bordered input input-sm h-14 w-full max-w-full ${
+                touched.description && errors.description ? "border-error" : ""
+              }`}
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}

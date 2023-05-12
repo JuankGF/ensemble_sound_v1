@@ -44,3 +44,19 @@ input[type="date"]:before {
   right: 6px;
   color: #999;
 }
+
+.MuiInputBase-root.MuiOutlinedInput-root {
+  @apply rounded-lg;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root input {
+  @apply px-2 py-1.5;
+}
+
+.Mui-error {
+  @apply border-error;
+}
+
+.MuiFormControl-root.input-error .MuiInputBase-root.MuiOutlinedInput-root {
+  @apply border-error;
+}

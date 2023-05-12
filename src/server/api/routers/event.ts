@@ -18,8 +18,18 @@ export const eventRouter = createTRPCRouter({
     });
   }),
 
-  getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.event.findMany();
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.event.findMany({
+      where: {
+        date: { gte: new Date() },
+      },
+      select: {
+        date: true,
+        isPublic: true,
+        isSynchronized: true,
+        name: true,
+      },
+    });
   }),
 
   getAllPrivate: protectedProcedure.query(({ ctx }) => {
@@ -30,14 +40,28 @@ export const eventRouter = createTRPCRouter({
     });
   }),
 
-  create: protectedProcedure
+  getByDate: publicProcedure
+    .input(
+      z.object({
+        date: z.date(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.event.findFirst({
+        where: {
+          date: { in: input.date },
+        },
+      });
+    }),
+
+  create: publicProcedure
     .input(
       z.object({
         name: z.string(),
         description: z.string(),
         type: z.string(),
         date: z.date(),
-        location: z.string(),
+        location: z.string().optional(),
         address: z.string().optional(),
         isPublic: z.boolean().optional(),
         media: z
@@ -57,7 +81,7 @@ export const eventRouter = createTRPCRouter({
           type: input.type,
           date: input.date,
           address: input.address,
-          location: input.location,
+          location: input.location ?? "",
           isPublic: input.isPublic,
           media: input.media
             ? {

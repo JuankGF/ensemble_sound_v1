@@ -22,7 +22,6 @@ export default function Field({
 }: PropsWithChildren<FieldProps>) {
   return (
     <div
-      id={field}
       className={`${
         horizontal ? "grid grid-cols-3" : "block"
       } items-center sm:mt-3 md:mt-4 ${className ?? ""}`}

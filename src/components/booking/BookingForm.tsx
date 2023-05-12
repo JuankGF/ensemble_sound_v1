@@ -1,21 +1,20 @@
-import { format } from "date-fns";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
+import { format } from "date-fns";
 
-import { Button, Field } from "../utils";
+import { Button, DateTimeInput, Field } from "../utils";
+import { useScheduledDates } from "./hooks/useScheduledDates";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
   email: Yup.string().email().required("Email is a required field"),
   phone: Yup.string().optional(),
-  booking_date: Yup.string().required("Booking date is a required field"),
-  arrival_time: Yup.string().required("Time is a required field"),
+  booking_date: Yup.date()
+    .required("Booking date is a required field")
+    .min(format(new Date(), "yyyy-MM-dd hh:mm zz"), "Date must be after now"),
   type: Yup.string().optional(),
   description: Yup.string().required("Description is a required field"),
 });
@@ -25,8 +24,7 @@ type FormProps = {
     email: string;
     name: string;
     phone: string;
-    booking_date: string;
-    arrival_time: string;
+    booking_date: Date | null;
     type: string;
     description: string;
   };
@@ -34,13 +32,14 @@ type FormProps = {
 
 export default function BookingForm({ initialValues }: FormProps) {
   const { data } = useSession();
+  const { scheduledDates } = useScheduledDates();
 
   const { email, name } = data?.user ?? {};
   const defaultValues = {
     email: email ?? "",
     name: name ?? "",
     phone: "",
-    booking_date: "",
+    booking_date: null,
     arrival_time: "",
     type: "",
     description: "",
@@ -56,6 +55,9 @@ export default function BookingForm({ initialValues }: FormProps) {
     { label: "Studio", value: ServiceType.STUDIO },
     { label: "Sound Test", value: ServiceType.SOUND_TEST },
   ];
+
+  const inputClass =
+    "input-bordered input input-sm w-full max-w-full px-2 py-1";
 
   return (
     <Formik
@@ -76,6 +78,7 @@ export default function BookingForm({ initialValues }: FormProps) {
         handleBlur,
         handleSubmit,
         setFieldValue,
+        setFieldTouched,
         isSubmitting,
         isValid,
       }) => (
@@ -91,7 +94,9 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="name"
               type="text"
               placeholder="Enter name"
-              className="input-bordered input input-sm w-full max-w-full"
+              className={`${inputClass} ${
+                touched.name && errors.name ? "border-error" : ""
+              }`}
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -109,7 +114,9 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="email"
               type="email"
               placeholder="Enter email"
-              className="input-bordered input input-sm w-full max-w-full"
+              className={`${inputClass} ${
+                touched.email && errors.email ? "border-error" : ""
+              }`}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -126,7 +133,7 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="phone"
               type="tel"
               placeholder="Enter phone number"
-              className="input-bordered input input-sm w-full max-w-full"
+              className={inputClass}
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -139,47 +146,21 @@ export default function BookingForm({ initialValues }: FormProps) {
             error={errors.booking_date}
             touched={touched.booking_date}
           >
-            <input
+            <DateTimeInput
               id="booking_date"
-              type="date"
-              placeholder="Enter date"
-              className="input-bordered input input-sm w-full max-w-full"
+              timePicker
+              disablePastDates
+              disabledDates={scheduledDates}
+              className={
+                touched.booking_date && errors.booking_date
+                  ? "input-error"
+                  : undefined
+              }
               value={values.booking_date}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              min={format(new Date(), "yyyy-MM-dd")}
-            />
-            <FontAwesomeIcon
-              icon={faCalendarAlt}
-              className="absolute right-2.5 top-2.5 h-3 w-3 text-xs"
-            />
-          </Field>
-          <Field
-            field="arrival_time"
-            label="Booking Time"
-            className="mb-3"
-            error={errors.arrival_time}
-            touched={touched.arrival_time}
-          >
-            <Select
-              id="arrival_time"
-              placeholder="Enter booking time"
-              isDisabled={values?.booking_date === undefined}
-              isClearable
-              onChange={(newVal) => {
-                setFieldValue("arrival_time", newVal?.value);
-              }}
-              onBlur={handleBlur}
-              options={[{ label: "10:00 PM", value: "22:00" }]}
-              styles={{
-                control(base) {
-                  return {
-                    ...base,
-                    borderRadius: "0.5rem",
-                    fontSize: "0.9rem",
-                  };
-                },
-              }}
+              onChange={(value: Date | null) =>
+                setFieldValue("booking_date", value)
+              }
+              onBlur={() => setFieldTouched("booking_date")}
             />
           </Field>
           <Field
@@ -221,7 +202,9 @@ export default function BookingForm({ initialValues }: FormProps) {
             <textarea
               id="description"
               placeholder="Enter a description"
-              className="input-bordered input input-sm h-14 w-full max-w-full"
+              className={`input-bordered input input-sm h-14 w-full max-w-full ${
+                touched.description && errors.description ? "border-error" : ""
+              }`}
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -233,9 +216,10 @@ export default function BookingForm({ initialValues }: FormProps) {
           <div className="mt-5 flex w-full justify-center">
             <Button
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={!isValid}
               className="mt-5"
               aria-label="On Click"
+              loading={isSubmitting || true}
             >
               Submit
             </Button>

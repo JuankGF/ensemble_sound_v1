@@ -9,6 +9,7 @@ import LoadingView from "./LoadingView";
 import NavMenu from "./NavMenu";
 import Header from "./Header";
 import Footer from "./Footer";
+import DateTimeInput from "./DatePicker";
 
 export {
   Header,
@@ -22,4 +23,5 @@ export {
   Field,
   LoadingView,
   NavMenu,
+  DateTimeInput,
 };

@@ -4,8 +4,10 @@ import {
   type DateOrTimeView,
   DatePicker,
   DateTimePicker,
+  type DateTimeValidationError,
 } from "@mui/x-date-pickers";
 import { isSameDay } from "date-fns";
+import { type PickerChangeHandlerContext } from "@mui/x-date-pickers/internals/hooks/usePicker/usePickerValue.types";
 
 type Props = {
   id?: string;
@@ -16,6 +18,12 @@ type Props = {
   disablePastDates?: boolean;
   disableFutureDates?: boolean;
   disabledDates?: Date[];
+  value?: Date | null;
+  onChange: (
+    value: Date | null,
+    context: PickerChangeHandlerContext<DateTimeValidationError>
+  ) => void;
+  onBlur: () => void;
 };
 
 export default function DateTimeInput({
@@ -27,6 +35,9 @@ export default function DateTimeInput({
   disableFutureDates,
   disablePastDates,
   disabledDates,
+  value,
+  onChange,
+  onBlur,
 }: Props) {
   const views = [
     "year",
@@ -46,13 +57,21 @@ export default function DateTimeInput({
         <DateTimePicker
           views={views}
           slotProps={{
-            textField: { size: "small", helperText: helperText, id: id },
+            textField: {
+              size: "small",
+              helperText: helperText,
+              id: id,
+              required: true,
+            },
           }}
           disableFuture={disableFutureDates}
           disablePast={disablePastDates}
           minDateTime={min}
           maxDateTime={max}
           shouldDisableDate={shouldDisableDates}
+          onChange={onChange}
+          value={value}
+          onClose={onBlur}
         />
       ) : (
         <DatePicker
@@ -68,6 +87,9 @@ export default function DateTimeInput({
           minDate={min}
           maxDate={max}
           shouldDisableDate={shouldDisableDates}
+          onChange={onChange}
+          value={value}
+          onClose={onBlur}
         />
       )}
     </LocalizationProvider>

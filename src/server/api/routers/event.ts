@@ -54,14 +54,14 @@ export const eventRouter = createTRPCRouter({
       });
     }),
 
-  create: protectedProcedure
+  create: publicProcedure
     .input(
       z.object({
         name: z.string(),
         description: z.string(),
         type: z.string(),
         date: z.date(),
-        location: z.string(),
+        location: z.string().optional(),
         address: z.string().optional(),
         isPublic: z.boolean().optional(),
         media: z
@@ -81,7 +81,7 @@ export const eventRouter = createTRPCRouter({
           type: input.type,
           date: input.date,
           address: input.address,
-          location: input.location,
+          location: input.location ?? "",
           isPublic: input.isPublic,
           media: input.media
             ? {

@@ -1,14 +1,10 @@
-import { format } from "date-fns";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
 
-import { Button, Field } from "../utils";
+import { Button, DateTimeInput, Field } from "../utils";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -126,7 +122,7 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="phone"
               type="tel"
               placeholder="Enter phone number"
-              className="input-bordered input input-sm w-full max-w-full"
+              className="input-bordered input input-sm w-full max-w-full px-2 py-1"
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -139,47 +135,11 @@ export default function BookingForm({ initialValues }: FormProps) {
             error={errors.booking_date}
             touched={touched.booking_date}
           >
-            <input
+            <DateTimeInput
               id="booking_date"
-              type="date"
-              placeholder="Enter date"
-              className="input-bordered input input-sm w-full max-w-full"
-              value={values.booking_date}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              min={format(new Date(), "yyyy-MM-dd")}
-            />
-            <FontAwesomeIcon
-              icon={faCalendarAlt}
-              className="absolute right-2.5 top-2.5 h-3 w-3 text-xs"
-            />
-          </Field>
-          <Field
-            field="arrival_time"
-            label="Booking Time"
-            className="mb-3"
-            error={errors.arrival_time}
-            touched={touched.arrival_time}
-          >
-            <Select
-              id="arrival_time"
-              placeholder="Enter booking time"
-              isDisabled={values?.booking_date === undefined}
-              isClearable
-              onChange={(newVal) => {
-                setFieldValue("arrival_time", newVal?.value);
-              }}
-              onBlur={handleBlur}
-              options={[{ label: "10:00 PM", value: "22:00" }]}
-              styles={{
-                control(base) {
-                  return {
-                    ...base,
-                    borderRadius: "0.5rem",
-                    fontSize: "0.9rem",
-                  };
-                },
-              }}
+              timePicker
+              helperText={errors.booking_date}
+              disablePastDates
             />
           </Field>
           <Field

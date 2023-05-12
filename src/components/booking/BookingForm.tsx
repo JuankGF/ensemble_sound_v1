@@ -5,13 +5,15 @@ import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
 
 import { Button, DateTimeInput, Field } from "../utils";
+import { format } from "date-fns";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
   email: Yup.string().email().required("Email is a required field"),
   phone: Yup.string().optional(),
-  booking_date: Yup.string().required("Booking date is a required field"),
-  arrival_time: Yup.string().required("Time is a required field"),
+  booking_date: Yup.date()
+    .required("Booking date is a required field")
+    .min(format(new Date(), "yyyy-MM-dd hh:mm zz"), "Date must be after now"),
   type: Yup.string().optional(),
   description: Yup.string().required("Description is a required field"),
 });
@@ -21,8 +23,7 @@ type FormProps = {
     email: string;
     name: string;
     phone: string;
-    booking_date: string;
-    arrival_time: string;
+    booking_date: Date | null;
     type: string;
     description: string;
   };
@@ -36,7 +37,7 @@ export default function BookingForm({ initialValues }: FormProps) {
     email: email ?? "",
     name: name ?? "",
     phone: "",
-    booking_date: "",
+    booking_date: null,
     arrival_time: "",
     type: "",
     description: "",
@@ -72,6 +73,7 @@ export default function BookingForm({ initialValues }: FormProps) {
         handleBlur,
         handleSubmit,
         setFieldValue,
+        setFieldTouched,
         isSubmitting,
         isValid,
       }) => (
@@ -138,8 +140,12 @@ export default function BookingForm({ initialValues }: FormProps) {
             <DateTimeInput
               id="booking_date"
               timePicker
-              helperText={errors.booking_date}
               disablePastDates
+              value={values.booking_date}
+              onChange={(value: Date | null) =>
+                setFieldValue("booking_date", value)
+              }
+              onBlur={() => setFieldTouched("booking_date")}
             />
           </Field>
           <Field
@@ -193,9 +199,10 @@ export default function BookingForm({ initialValues }: FormProps) {
           <div className="mt-5 flex w-full justify-center">
             <Button
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={!isValid}
               className="mt-5"
               aria-label="On Click"
+              loading={isSubmitting || true}
             >
               Submit
             </Button>

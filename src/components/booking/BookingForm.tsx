@@ -3,9 +3,10 @@ import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
 import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
+import { format } from "date-fns";
 
 import { Button, DateTimeInput, Field } from "../utils";
-import { format } from "date-fns";
+import { useScheduledDates } from "./hooks/useScheduledDates";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -31,6 +32,7 @@ type FormProps = {
 
 export default function BookingForm({ initialValues }: FormProps) {
   const { data } = useSession();
+  const { scheduledDates } = useScheduledDates();
 
   const { email, name } = data?.user ?? {};
   const defaultValues = {
@@ -148,6 +150,12 @@ export default function BookingForm({ initialValues }: FormProps) {
               id="booking_date"
               timePicker
               disablePastDates
+              disabledDates={scheduledDates}
+              className={
+                touched.booking_date && errors.booking_date
+                  ? "input-error"
+                  : undefined
+              }
               value={values.booking_date}
               onChange={(value: Date | null) =>
                 setFieldValue("booking_date", value)

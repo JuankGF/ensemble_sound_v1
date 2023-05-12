@@ -18,6 +18,7 @@ type Props = {
   disablePastDates?: boolean;
   disableFutureDates?: boolean;
   disabledDates?: Date[];
+  className?: string;
   value?: Date | null;
   onChange: (
     value: Date | null,
@@ -35,6 +36,7 @@ export default function DateTimeInput({
   disableFutureDates,
   disablePastDates,
   disabledDates,
+  className,
   value,
   onChange,
   onBlur,
@@ -72,6 +74,7 @@ export default function DateTimeInput({
           onChange={onChange}
           value={value}
           onClose={onBlur}
+          className={className}
         />
       ) : (
         <DatePicker
@@ -90,6 +93,7 @@ export default function DateTimeInput({
           onChange={onChange}
           value={value}
           onClose={onBlur}
+          className={className}
         />
       )}
     </LocalizationProvider>

@@ -56,3 +56,7 @@ input[type="date"]:before {
 .Mui-error {
   @apply border-error;
 }
+
+.MuiFormControl-root.input-error .MuiInputBase-root.MuiOutlinedInput-root {
+  @apply border-error;
+}

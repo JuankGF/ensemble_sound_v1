@@ -33,8 +33,7 @@ export default function BookService() {
       <div className="px-12">
         <BookingForm
           initialValues={{
-            arrival_time: "",
-            booking_date: "",
+            booking_date: null,
             description: data?.description ?? "",
             type: data?.type ?? "",
             email: session?.user.email ?? "",

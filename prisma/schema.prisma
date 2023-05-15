@@ -135,6 +135,21 @@ model Media {
     @@index([path])
 }
 
+model Request {
+    id           String    @id @default(cuid())
+    name         String
+    email        String
+    phone        String?
+    description  String
+    type         String
+    address      String
+    booking_date DateTime
+    createdAt    DateTime? @default(now()) @map("created_at")
+    updatedAt    DateTime? @updatedAt @map("updated_at")
+
+    @@index([email])
+}
+
 enum Role {
     ADMIN
     USER

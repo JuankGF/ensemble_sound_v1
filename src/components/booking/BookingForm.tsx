@@ -37,7 +37,7 @@ export default function BookingForm({ initialValues }: FormProps) {
   const { scheduledDates } = useScheduledDates();
   const {
     isLoading,
-    mutate: sendRequest,
+    mutateAsync: sendRequest,
     isError,
     isSuccess,
     error,
@@ -73,8 +73,8 @@ export default function BookingForm({ initialValues }: FormProps) {
     <Formik
       initialValues={initialValues ?? defaultValues}
       validationSchema={BookingSchema}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        sendRequest(values);
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
+        await sendRequest(values);
         if (isLoading) setSubmitting(true);
         if (isSuccess || isError) setSubmitting(false);
         /* TODO!: Show error Toast notifications */

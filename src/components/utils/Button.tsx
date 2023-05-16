@@ -1,3 +1,5 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { type PropsWithChildren } from "react";
 
 export type ButtonVariant =
@@ -40,7 +42,6 @@ export default function Button({
   const shapeClass = shape ? `btn-${shape} ` : "";
   const sizeClass = size ? ` btn-${size}` : "";
   const outlineClass = outline ? ` btn-outline` : "";
-  const loadingState = loading ? ` btn-loading` : "";
   const glassClass = glass ? ` btn-glass` : "";
 
   return (
@@ -48,11 +49,14 @@ export default function Button({
       type={type}
       className={`btn btn-${variant.toString()} btn-md gap-2 text-white ${
         className ?? ""
-      }${shapeClass}${sizeClass}${outlineClass}${loadingState}${glassClass}`}
+      }${shapeClass}${sizeClass}${outlineClass}${glassClass}`}
       disabled={disabled}
       onClick={onClick}
     >
       {children}
+      {loading && (
+        <FontAwesomeIcon icon={faSpinner} className="h-4 w-4 animate-spin" />
+      )}
     </button>
   );
 }

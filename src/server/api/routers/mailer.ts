@@ -11,7 +11,6 @@ import {
   clientTXT,
   template,
 } from "~/server/mailer/templates";
-import { replace } from "formik";
 
 type RequestData = Omit<Request, "id" | "createdAt" | "updatedAt">;
 
@@ -101,7 +100,7 @@ export const mailerRouter = createTRPCRouter({
         name: z.string(),
         email: z.string(),
         type: z.string(),
-        booking_date: z.date(),
+        booking_date: z.date().nullable(),
         description: z.string(),
         address: z.string(),
         phone: z.string().optional(),
@@ -113,7 +112,7 @@ export const mailerRouter = createTRPCRouter({
         email: input.email,
         description: input.description,
         address: input.address,
-        booking_date: input.booking_date,
+        booking_date: input.booking_date ?? new Date(),
         type: input.type,
         phone: input.phone ?? null,
       })
@@ -123,7 +122,7 @@ export const mailerRouter = createTRPCRouter({
               name: input.name,
               email: input.email,
               type: input.type,
-              booking_date: input.booking_date,
+              booking_date: input.booking_date ?? new Date(),
               description: input.description,
               address: input.address,
               phone: input.phone,

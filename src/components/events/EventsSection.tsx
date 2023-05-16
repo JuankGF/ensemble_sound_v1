@@ -60,7 +60,7 @@ export default function EventsSection() {
               <div className="flex justify-center">
                 <FontAwesomeIcon
                   icon={faMapLocationDot}
-                  className="text-primary"
+                  className="h-6 w-6 text-primary"
                 />{" "}
                 {location}
               </div>

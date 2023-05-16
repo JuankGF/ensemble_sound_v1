@@ -3,6 +3,7 @@ export const adminHTML = `<h1>New Request Received From Ensemble Sound Website</
 <p>Name: %NAME%</p>
 <a href="mailto:%EMAIL%">Email: %EMAIL%</a>
 <br />
+<br />
 <a href="tel:%PHONE%">Phone: %PHONE%</a>
 <p>Address: %ADDRESS%</p>
 <p>Event Date: %BOOKING_DATE%</p>

@@ -14,6 +14,9 @@ export const template = `<!DOCTYPE html>
         font-family: "Montserrat", sans-serif;
         padding: 1em;
       }
+      h1 {
+        color: #573065;
+      }
     </style>
   </head>
   <body>

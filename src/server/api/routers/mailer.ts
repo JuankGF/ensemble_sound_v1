@@ -61,8 +61,8 @@ async function sendEmails({
   sendHtml = template
     .replace("%BODY%", adminHTML)
     .replace("%NAME%", name)
-    .replace("%EMAIL%", email)
-    .replace("%PHONE%", phone ?? "?")
+    .replaceAll("%EMAIL%", email)
+    .replaceAll("%PHONE%", phone ?? "?")
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     .replace("%ADDRESS%", address)
     .replace("%BOOKING_DATE%", booking_date.toString())
@@ -71,8 +71,8 @@ async function sendEmails({
 
   sendTxt = adminTXT
     .replace("%NAME%", name)
-    .replace("%EMAIL%", email)
-    .replace("%PHONE%", phone ?? "?")
+    .replaceAll("%EMAIL%", email)
+    .replaceAll("%PHONE%", phone ?? "?")
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     .replace("%ADDRESS%", address)
     .replace("%BOOKING_DATE%", booking_date.toString())

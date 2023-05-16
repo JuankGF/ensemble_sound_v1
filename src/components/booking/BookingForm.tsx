@@ -79,7 +79,7 @@ export default function BookingForm({ initialValues }: FormProps) {
         if (isSuccess || isError) setSubmitting(false);
         /* TODO!: Show error Toast notifications */
         if (isError) console.log("Error: ", error);
-        if (isSuccess) resetForm();
+        resetForm();
       }}
     >
       {({

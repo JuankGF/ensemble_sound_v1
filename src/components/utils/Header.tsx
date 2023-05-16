@@ -106,9 +106,12 @@ export default function Header() {
                   <Image
                     loader={(p) => `${p.src}`}
                     alt="avatar"
-                    src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${
-                      sessionData?.user.name ?? "avatar"
-                    }`}
+                    src={
+                      sessionData?.user.image ??
+                      `https://api.dicebear.com/5.x/fun-emoji/svg?seed=${
+                        sessionData?.user.name ?? "avatar"
+                      }`
+                    }
                     width={100}
                     height={100}
                     className="shadow-sm"

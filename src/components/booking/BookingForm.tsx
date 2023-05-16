@@ -7,6 +7,7 @@ import { format } from "date-fns";
 
 import { Button, DateTimeInput, Field } from "../utils";
 import { useScheduledDates } from "./hooks/useScheduledDates";
+import { api } from "~/utils/api";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -27,12 +28,20 @@ type FormProps = {
     booking_date: Date | null;
     type: string;
     description: string;
+    address: string;
   };
 };
 
 export default function BookingForm({ initialValues }: FormProps) {
   const { data } = useSession();
   const { scheduledDates } = useScheduledDates();
+  const {
+    isLoading,
+    mutate: sendRequest,
+    isError,
+    isSuccess,
+    error,
+  } = api.mailer.sendRequest.useMutation();
 
   const { email, name } = data?.user ?? {};
   const defaultValues = {
@@ -43,6 +52,7 @@ export default function BookingForm({ initialValues }: FormProps) {
     arrival_time: "",
     type: "",
     description: "",
+    address: "",
   };
 
   const typeOptions = [
@@ -63,11 +73,13 @@ export default function BookingForm({ initialValues }: FormProps) {
     <Formik
       initialValues={initialValues ?? defaultValues}
       validationSchema={BookingSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 1000);
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        sendRequest(values);
+        if (isLoading) setSubmitting(true);
+        if (isSuccess || isError) setSubmitting(false);
+        /* TODO!: Show error Toast notifications */
+        if (isError) console.log("Error: ", error);
+        if (isSuccess) resetForm();
       }}
     >
       {({
@@ -157,9 +169,10 @@ export default function BookingForm({ initialValues }: FormProps) {
                   : undefined
               }
               value={values.booking_date}
-              onChange={(value: Date | null) =>
-                setFieldValue("booking_date", value)
-              }
+              onChange={(value: Date | null) => {
+                setFieldTouched("booking_date");
+                setFieldValue("booking_date", value);
+              }}
               onBlur={() => setFieldTouched("booking_date")}
             />
           </Field>
@@ -219,7 +232,7 @@ export default function BookingForm({ initialValues }: FormProps) {
               disabled={!isValid}
               className="mt-5"
               aria-label="On Click"
-              loading={isSubmitting || true}
+              loading={isSubmitting}
             >
               Submit
             </Button>

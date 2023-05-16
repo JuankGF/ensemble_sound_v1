@@ -49,7 +49,6 @@ export default function BookingForm({ initialValues }: FormProps) {
     name: name ?? "",
     phone: "",
     booking_date: null,
-    arrival_time: "",
     type: "",
     description: "",
     address: "",

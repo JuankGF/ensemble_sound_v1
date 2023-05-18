@@ -1,8 +1,7 @@
 import React from "react";
-import { useRouter } from "next/router";
 
 import TestimonialForm from "./TestimonialForm";
-import { api } from "~/utils/api";
+import { type SubmitProps } from "./TestimonialsSection";
 
 type Props = {
   user: {
@@ -10,23 +9,11 @@ type Props = {
     email?: string | null | undefined;
     image?: string | null | undefined;
   };
+  onSubmit: (values: SubmitProps) => void;
+  isLoading?: boolean;
 };
 
-export type SubmitProps = {
-  opinion: string;
-  authorName: string;
-  authorEmail: string;
-  authorImage?: string | undefined;
-  rating: number;
-};
-
-export default function TestimonialModal({ user }: Props) {
-  const router = useRouter();
-  const { mutate } = api.testimonials.create.useMutation();
-  const onSubmit = (values: SubmitProps) => {
-    mutate(values);
-    void router.push("/#testimonials");
-  };
+export default function TestimonialModal({ user, isLoading, onSubmit }: Props) {
   return (
     <>
       <a
@@ -50,7 +37,7 @@ export default function TestimonialModal({ user }: Props) {
             name={user.name}
             email={user.email}
             image={user.image}
-            submitTrigger={ModalSubmit()}
+            submitTrigger={<ModalSubmit disabled={isLoading} />}
             onSubmit={onSubmit}
           />
         </div>
@@ -59,10 +46,12 @@ export default function TestimonialModal({ user }: Props) {
   );
 }
 
-const ModalSubmit = () => (
+const ModalSubmit = ({ disabled }: { disabled?: boolean }) => (
   <div className="modal-action">
     <a href="#testimonials" className="btn-outline btn-primary btn">
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={disabled}>
+        Submit
+      </button>
     </a>
   </div>
 );

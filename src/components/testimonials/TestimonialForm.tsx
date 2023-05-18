@@ -3,7 +3,7 @@ import React, { type ReactNode } from "react";
 import * as Yup from "yup";
 
 import { Field, RatingInput } from "../utils";
-import { type SubmitProps } from "./TestimonialModal";
+import { type SubmitProps } from "./TestimonialsSection";
 
 type FormProps = {
   name?: string | null | undefined;

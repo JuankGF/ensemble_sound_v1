@@ -7,13 +7,37 @@ import { api } from "~/utils/api";
 import TestimonialCard from "./TestimonialCard";
 import { LoadingView } from "../utils";
 import TestimonialModal from "./TestimonialModal";
+import { useRouter } from "next/router";
+
+export type SubmitProps = {
+  opinion: string;
+  authorName: string;
+  authorEmail: string;
+  authorImage?: string | undefined;
+  rating: number;
+};
 
 export default function TestimonialsSection() {
+  const router = useRouter();
   const { status, data } = useSession();
-  const { data: testimonials, isLoading } = api.testimonials.getAll.useQuery({
+  const {
+    data: testimonials,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = api.testimonials.getAll.useQuery({
     count: 3,
     distinct: "authorId",
   });
+
+  const { mutate } = api.testimonials.create.useMutation({
+    onSuccess: () => refetch(),
+  });
+
+  const onSubmit = (values: SubmitProps) => {
+    mutate(values);
+    void router.push("/#testimonials");
+  };
 
   if (isLoading) return <LoadingView />;
 
@@ -57,7 +81,13 @@ export default function TestimonialsSection() {
           )}
         </div>
       )}
-      {status === "authenticated" && <TestimonialModal user={data.user} />}
+      {status === "authenticated" && (
+        <TestimonialModal
+          user={data.user}
+          onSubmit={onSubmit}
+          isLoading={isRefetching}
+        />
+      )}
     </section>
   );
 }

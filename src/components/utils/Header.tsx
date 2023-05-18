@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faBarsStaggered,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -122,14 +125,25 @@ export default function Header() {
                 tabIndex={0}
                 className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
               >
-                <li>
+                {/* <li>
                   <a className="justify-between">
                     Profile
                     <span className="badge">New</span>
                   </a>
-                </li>
+                </li> */}
                 <li>
-                  <a onClick={() => void signOut()}>Logout</a>
+                  <a
+                    className="w-full justify-between"
+                    onClick={() => void signOut()}
+                  >
+                    Logout{" "}
+                    <span className="">
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        className="h-4 w-4"
+                      />
+                    </span>
+                  </a>
                 </li>
               </ul>
             </>

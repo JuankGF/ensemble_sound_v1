@@ -23,7 +23,8 @@ export default function TestimonialCard({
       subtitle={authorEmail}
       text={text}
       image={image}
-      imageClass="rounded-full w-16 ml-3"
+      imageClass="rounded-full w-16 h-16 ml-3 object-cover"
+      figureClass="px-2"
       layoutHorizontal
     >
       <div className="rating justify-start">

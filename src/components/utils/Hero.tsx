@@ -48,7 +48,7 @@ export default function Hero({
             </h1>
             <p className={`py-6 ${text_class}`}>{text}</p>
             {button_action && (
-              <Button variant={button_variant} onClick={button_action}>
+              <Button variant={button_variant} outline onClick={button_action}>
                 {button_label}
               </Button>
             )}

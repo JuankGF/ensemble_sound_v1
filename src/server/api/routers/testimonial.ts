@@ -53,8 +53,8 @@ export const testimonialRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        text: z.string(),
-        raiting: z.number(),
+        opinion: z.string(),
+        rating: z.number(),
         authorName: z.string().optional(),
         authorImage: z.string().optional(),
         authorEmail: z.string(),
@@ -63,12 +63,12 @@ export const testimonialRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.testimonial.create({
         data: {
-          text: input.text,
-          rating: input.raiting,
+          text: input.opinion,
+          rating: input.rating,
           author: {
             connectOrCreate: {
               where: {
-                id: input.authorEmail,
+                email: input.authorEmail,
               },
               create: {
                 name: input.authorName ?? input.authorEmail,
@@ -88,15 +88,15 @@ export const testimonialRouter = createTRPCRouter({
       z.object({
         id: z.string(),
         text: z.string().optional(),
-        raiting: z.number().optional(),
+        rating: z.number().optional(),
       })
     )
     .mutation(({ ctx, input }) => {
-      if (input.raiting && (input.raiting > 5 || input.raiting < 1)) {
+      if (input.rating && (input.rating > 5 || input.rating < 1)) {
         throw new trpc.TRPCError({
           code: "BAD_REQUEST",
-          message: "Raiting must be a value between 1 and 5.",
-          cause: "Raiting value out of bonds",
+          message: "rating must be a value between 1 and 5.",
+          cause: "rating value out of bonds",
         });
       }
       return ctx.prisma.testimonial.update({
@@ -105,7 +105,7 @@ export const testimonialRouter = createTRPCRouter({
         },
         data: {
           text: input.text,
-          rating: input.raiting,
+          rating: input.rating,
         },
       });
     }),

@@ -69,7 +69,7 @@ export default function TestimonialForm({
           />
           <Field
             field="opinion"
-            label="Opinion"
+            label=""
             className="mb-3"
             error={errors.opinion}
             touched={touched.opinion}

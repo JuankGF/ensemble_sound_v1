@@ -30,7 +30,7 @@ export default function TestimonialsSection() {
     distinct: "authorId",
   });
 
-  const { mutate } = api.testimonials.create.useMutation({
+  const { mutate, isSuccess } = api.testimonials.create.useMutation({
     onSuccess: () => refetch(),
   });
 
@@ -86,6 +86,7 @@ export default function TestimonialsSection() {
           user={data.user}
           onSubmit={onSubmit}
           isLoading={isRefetching}
+          showSuccessMessage={isSuccess}
         />
       )}
     </section>

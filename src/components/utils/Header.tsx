@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faBarsStaggered,
+} from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -129,7 +132,18 @@ export default function Header() {
                   </a>
                 </li> */}
                 <li>
-                  <a onClick={() => void signOut()}>Logout</a>
+                  <a
+                    className="w-full justify-between"
+                    onClick={() => void signOut()}
+                  >
+                    Logout{" "}
+                    <span className="">
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        className="h-4 w-4"
+                      />
+                    </span>
+                  </a>
                 </li>
               </ul>
             </>

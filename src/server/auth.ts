@@ -5,6 +5,8 @@ import {
   type DefaultSession,
 } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
@@ -52,6 +54,21 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
+    GoogleProvider({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
+    }),
+    EmailProvider({
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: Number(env.EMAIL_SERVER_PORT),
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
+    }),
     /**
      * ...add more providers here.
      *
@@ -62,6 +79,12 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  theme: {
+    colorScheme: "light", // "auto" | "dark" | "light"
+    brandColor: "#573065", // Hex color code
+    logo: "/logo.png", // Absolute URL to image
+    buttonText: "#ffff", // Hex color code
+  },
 };
 
 /**

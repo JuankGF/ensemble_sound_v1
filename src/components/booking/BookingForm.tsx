@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { Button, DateTimeInput, Field } from "../utils";
 import { useScheduledDates } from "./hooks/useScheduledDates";
 import { api } from "~/utils/api";
+import { useWindowSize } from "~/hooks/useWindowSize";
 
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -34,6 +35,7 @@ type FormProps = {
 
 export default function BookingForm({ initialValues }: FormProps) {
   const { data } = useSession();
+  const { isSmallScreen } = useWindowSize();
   const { scheduledDates } = useScheduledDates();
   const {
     isLoading,
@@ -100,6 +102,7 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="mb-3"
             error={errors.name}
             touched={touched.name}
+            horizontal={!isSmallScreen}
           >
             <input
               id="name"
@@ -120,6 +123,7 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="mb-3"
             error={errors.email}
             touched={touched.email}
+            horizontal={!isSmallScreen}
           >
             <input
               id="email"
@@ -139,6 +143,7 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="mb-3"
             error={errors.phone}
             touched={touched.phone}
+            horizontal={!isSmallScreen}
           >
             <input
               id="phone"
@@ -156,6 +161,7 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="relative mb-3"
             error={errors.booking_date}
             touched={touched.booking_date}
+            horizontal={!isSmallScreen}
           >
             <DateTimeInput
               id="booking_date"
@@ -181,6 +187,7 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="mb-3"
             error={errors.type}
             touched={touched.type}
+            horizontal={!isSmallScreen}
           >
             <CreatableSelect
               id="type"
@@ -210,11 +217,12 @@ export default function BookingForm({ initialValues }: FormProps) {
             className="mb-3"
             error={errors.description}
             touched={touched.description}
+            horizontal={!isSmallScreen}
           >
             <textarea
               id="description"
               placeholder="Enter a description"
-              className={`input-bordered input input-sm h-14 w-full max-w-full ${
+              className={`input-bordered input input-sm h-20 w-full max-w-full ${
                 touched.description && errors.description ? "border-error" : ""
               }`}
               value={values.description}

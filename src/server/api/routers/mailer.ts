@@ -11,20 +11,21 @@ import {
   clientTXT,
   template,
 } from "~/server/mailer/templates";
+import { env } from "~/env.mjs";
 
 type RequestData = Omit<Request, "id" | "createdAt" | "updatedAt">;
 
 const mailConfig = {
-  host: "smtp.gmail.com",
-  port: 465, // or 587
+  host: env.EMAIL_SERVER_HOST,
+  port: Number(env.EMAIL_SERVER_PORT), // or 587
   secure: true, // true for 465, false for other ports
   auth: {
-    user: process.env.NEXT_PUBLIC_GMAIL_USER, // your gmail account
-    pass: process.env.NEXT_PUBLIC_GMAIL_PASS, // your gmail app password
+    user: env.EMAIL_SERVER_USER,
+    pass: env.EMAIL_SERVER_PASSWORD,
   },
 } as SMTPTransport.Options;
 
-const ADMIN_EMAIL = "Webmaster <juankgonzalezf@gmail.com>";
+const ADMIN_EMAIL = `Webmaster <${env.EMAIL_FROM}>`;
 
 async function sendEmails({
   name,

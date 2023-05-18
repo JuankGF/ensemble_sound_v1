@@ -26,7 +26,7 @@ export default function TestimonialsSection() {
     refetch,
     isRefetching,
   } = api.testimonials.getAll.useQuery({
-    count: 3,
+    count: 6,
     distinct: "authorId",
   });
 

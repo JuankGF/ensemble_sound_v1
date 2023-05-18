@@ -2,12 +2,12 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";
 import TestimonialCard from "./TestimonialCard";
 import { LoadingView } from "../utils";
 import TestimonialModal from "./TestimonialModal";
-import { useRouter } from "next/router";
 
 export type SubmitProps = {
   opinion: string;

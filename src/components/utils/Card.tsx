@@ -14,6 +14,7 @@ type CardProps = {
   actionIcon?: IconDefinition;
   layoutHorizontal?: boolean;
   imageClass?: string;
+  figureClass?: string;
   callToAction?: () => void;
 };
 
@@ -27,6 +28,7 @@ export default function Card({
   layoutHorizontal,
   children,
   callToAction,
+  figureClass,
   imageClass = "w-full object-cover",
 }: PropsWithChildren<CardProps>) {
   return (
@@ -36,7 +38,7 @@ export default function Card({
       }`}
     >
       {image && (
-        <figure>
+        <figure className={figureClass}>
           <Image
             src={image}
             alt={title}

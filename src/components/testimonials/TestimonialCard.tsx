@@ -13,14 +13,12 @@ type Props = {
 export default function TestimonialCard({
   rating,
   text,
-  authorEmail,
   authorName,
   image,
 }: Props) {
   return (
     <Card
       title={authorName}
-      subtitle={authorEmail}
       text={text}
       image={image}
       imageClass="rounded-full w-16 h-16 ml-3 object-cover"

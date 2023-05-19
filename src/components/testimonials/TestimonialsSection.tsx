@@ -39,9 +39,7 @@ export default function TestimonialsSection() {
 
   if (isLoading) return <LoadingView />;
 
-  return testimonials?.length === 0 ? (
-    <></>
-  ) : (
+  return (
     <section
       id="testimonials"
       className="xs:px-3 grid min-h-[12rem] w-full bg-primary py-8 md:px-10 lg:px-16"
@@ -52,27 +50,34 @@ export default function TestimonialsSection() {
         </b>
         <p className="text-white">See our customers testimonials</p>
       </div>
-
-      <div className="row-auto mt-6 grid w-full gap-3 px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-        {testimonials?.map(
-          ({ id, rating, text, author: { email, image, name } }) => (
-            <TestimonialCard
-              key={id}
-              text={text}
-              rating={rating}
-              authorEmail={email ?? ""}
-              authorName={name ?? ""}
-              image={
-                image ??
-                `https://api.dicebear.com/5.x/fun-emoji/svg?seed=${
-                  name ?? "avatar"
-                }`
-              }
-            />
-          )
-        )}
-      </div>
-
+      {testimonials?.length === 0 ? (
+        <>
+          <h5 className="text-center text-white">
+            Be the first to share your thoughts. We will be greatfull. Touch
+            below 👇
+          </h5>
+        </>
+      ) : (
+        <div className="row-auto mt-6 grid w-full gap-3 px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {testimonials?.map(
+            ({ id, rating, text, author: { email, image, name } }) => (
+              <TestimonialCard
+                key={id}
+                text={text}
+                rating={rating}
+                authorEmail={email ?? ""}
+                authorName={name ?? ""}
+                image={
+                  image ??
+                  `https://api.dicebear.com/5.x/fun-emoji/svg?seed=${
+                    name ?? "avatar"
+                  }`
+                }
+              />
+            )
+          )}
+        </div>
+      )}
       {status === "authenticated" && (
         <TestimonialModal
           user={data.user}

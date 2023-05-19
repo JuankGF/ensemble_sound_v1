@@ -16,10 +16,15 @@ export default function HeroSection() {
       className="section min-h-full lg:min-h-screen"
       button_variant="secondary"
       text_class="text-white md:text-lg"
+      title_class="hidden md:block text-white"
       overlayImg={bg2.src}
       button_action={() => void router.push("/book_online")}
     >
-      <ImageCarousel image_sources={[bg1, bg2, bg3, bg4]} className="h-full" />
+      <ImageCarousel
+        image_sources={[bg1, bg2, bg3, bg4]}
+        className="h-full min-h-full"
+        imageClass="h-full"
+      />
     </Hero>
   );
 }

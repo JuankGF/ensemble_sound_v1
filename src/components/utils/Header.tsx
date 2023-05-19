@@ -135,7 +135,7 @@ export default function Header() {
                     className="w-full justify-between"
                     onClick={() => void signOut()}
                   >
-                    Logout{" "}
+                    Sign Out{" "}
                     <span className="">
                       <FontAwesomeIcon
                         icon={faArrowRightFromBracket}
@@ -148,7 +148,7 @@ export default function Header() {
             </>
           ) : (
             <a onClick={() => void signIn()} className="btn-ghost btn-sm btn">
-              Login
+              Sign In
             </a>
           )}
         </div>

@@ -1,5 +1,3 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -53,13 +51,12 @@ export default function TestimonialsSection() {
         <p className="text-white">See our customers testimonials</p>
       </div>
       {testimonials?.length === 0 ? (
-        <div className="flex w-full flex-col items-center text-xl font-semibold text-white">
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="max-w-[6rem] text-sm text-white"
-          />
-          No testimonials found
-        </div>
+        <>
+          <h5 className="text-center text-white">
+            Be the first to share your thoughts. We will be greatfull. Touch
+            below 👇
+          </h5>
+        </>
       ) : (
         <div className="row-auto mt-6 grid w-full gap-3 px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
           {testimonials?.map(

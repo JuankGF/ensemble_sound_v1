@@ -4,7 +4,6 @@ import {
   faArrowRightFromBracket,
   faBarsStaggered,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";

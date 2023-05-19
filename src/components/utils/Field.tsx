@@ -17,7 +17,6 @@ export default function Field({
   touched,
   className,
   children,
-  required,
   horizontal = true,
 }: PropsWithChildren<FieldProps>) {
   return (

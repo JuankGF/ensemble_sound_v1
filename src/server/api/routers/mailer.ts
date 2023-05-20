@@ -12,6 +12,7 @@ import {
   template,
 } from "~/server/mailer/templates";
 import { env } from "~/env.mjs";
+import { toast } from "react-toastify";
 
 type RequestData = Omit<Request, "id" | "createdAt" | "updatedAt">;
 
@@ -57,7 +58,8 @@ async function sendEmails({
     })
     .then((info) => {
       console.log(info);
-    });
+    })
+    .catch((error) => toast.error(`Error: ${error}`));
 
   sendHtml = template
     .replace("%BODY%", adminHTML)
@@ -91,7 +93,8 @@ async function sendEmails({
     })
     .then((info) => {
       console.log(info);
-    });
+    })
+    .catch((error) => toast.error(`Error: ${error}`));
 }
 
 export const mailerRouter = createTRPCRouter({
@@ -130,8 +133,6 @@ export const mailerRouter = createTRPCRouter({
             },
           });
         })
-        .catch(() => {
-          return;
-        });
+        .catch((error) => toast.error(`Error: ${error}`));
     }),
 });

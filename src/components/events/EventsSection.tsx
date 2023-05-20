@@ -6,15 +6,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { format } from "date-fns";
 import { AddToCalendarButton } from "add-to-calendar-button-react";
+import { toast } from "react-toastify";
 
 import { api } from "~/utils/api";
-import { LoadingView } from "../utils";
+import { LoadingView, ToastErrorTemplate } from "../utils";
 import { useWindowSize } from "~/hooks/useWindowSize";
 
 export default function EventsSection() {
   const { isMobile } = useWindowSize();
-  const { data: upcomingEvents, isLoading } =
-    api.events.getAllPublic.useQuery();
+  const { data: upcomingEvents, isLoading } = api.events.getAllPublic.useQuery(
+    undefined,
+    {
+      onError: (error) =>
+        toast.error(
+          <ToastErrorTemplate code={error.data?.code} message={error.message} />
+        ),
+    }
+  );
 
   if (isLoading) return <LoadingView />;
 

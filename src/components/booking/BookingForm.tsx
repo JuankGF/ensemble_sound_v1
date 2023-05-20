@@ -4,8 +4,15 @@ import CreatableSelect from "react-select/creatable";
 import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
-import { Button, DateTimeInput, Field, AutocompleteAddress } from "../utils";
+import {
+  Button,
+  DateTimeInput,
+  Field,
+  AutocompleteAddress,
+  ToastErrorTemplate,
+} from "../utils";
 import { useScheduledDates } from "./hooks/useScheduledDates";
 import { api } from "~/utils/api";
 import { useWindowSize } from "~/hooks/useWindowSize";
@@ -49,7 +56,14 @@ export default function BookingForm({ initialValues }: FormProps) {
     isError,
     isSuccess,
     error,
-  } = api.mailer.sendRequest.useMutation();
+  } = api.mailer.sendRequest.useMutation({
+    onError: (error) =>
+      toast.error(
+        <ToastErrorTemplate message={error.message} code={error.data?.code} />
+      ),
+    onSuccess: (data, { name }) =>
+      toast.success(`Dear ${name}, we'll back to you soon by email or phone.`),
+  });
 
   const { email, name } = data?.user ?? {};
   const defaultValues = {
@@ -84,9 +98,16 @@ export default function BookingForm({ initialValues }: FormProps) {
         await sendRequest(values);
         if (isLoading) setSubmitting(true);
         if (isSuccess || isError) setSubmitting(false);
-        /* TODO!: Show error Toast notifications */
-        if (isError) console.log("Error: ", error);
         resetForm();
+
+        if (isError)
+          toast.error(
+            <ToastErrorTemplate
+              code={error.data?.code}
+              message={error.message}
+            />
+          );
+        if (isSuccess) toast.success("All set. We'll back to you soon.");
       }}
     >
       {({

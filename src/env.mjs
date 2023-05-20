@@ -28,6 +28,7 @@ const server = z.object({
   EMAIL_SERVER_PORT: z.string(),
   EMAIL_SERVER_USER: z.string(),
   EMAIL_SERVER_PASSWORD: z.string(),
+  NEXT_PUBLIC_GOOGLE_MAP_KEY: z.string(),
 });
 
 /**
@@ -62,6 +63,7 @@ const processEnv = {
   EMAIL_FROM: process.env.EMAIL_FROM,
   EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
   EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
+  NEXT_PUBLIC_GOOGLE_MAP_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

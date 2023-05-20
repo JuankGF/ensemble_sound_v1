@@ -11,6 +11,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import DateTimeInput from "./DatePicker";
 import RatingInput from "./RatingInput";
+import AutocompleteAddress from "./AutocompleteAddress";
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   NavMenu,
   DateTimeInput,
   RatingInput,
+  AutocompleteAddress,
 };

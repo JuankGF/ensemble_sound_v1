@@ -24,6 +24,7 @@ export default function HeroSection() {
         image_sources={[bg1, bg2, bg3, bg4]}
         className="h-full min-h-full"
         imageClass="h-full"
+        imagePriority
       />
     </Hero>
   );

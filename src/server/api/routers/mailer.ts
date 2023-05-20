@@ -12,7 +12,6 @@ import {
   template,
 } from "~/server/mailer/templates";
 import { env } from "~/env.mjs";
-import { toast } from "react-toastify";
 
 type RequestData = Omit<Request, "id" | "createdAt" | "updatedAt">;
 
@@ -58,8 +57,7 @@ async function sendEmails({
     })
     .then((info) => {
       console.log(info);
-    })
-    .catch((error) => toast.error(`Error: ${error}`));
+    });
 
   sendHtml = template
     .replace("%BODY%", adminHTML)
@@ -93,8 +91,7 @@ async function sendEmails({
     })
     .then((info) => {
       console.log(info);
-    })
-    .catch((error) => toast.error(`Error: ${error}`));
+    });
 }
 
 export const mailerRouter = createTRPCRouter({
@@ -119,20 +116,18 @@ export const mailerRouter = createTRPCRouter({
         booking_date: input.booking_date ?? new Date(),
         type: input.type,
         phone: input.phone ?? null,
-      })
-        .then(() => {
-          return ctx.prisma.request.create({
-            data: {
-              name: input.name,
-              email: input.email,
-              type: input.type,
-              booking_date: input.booking_date ?? new Date(),
-              description: input.description,
-              address: input.address,
-              phone: input.phone,
-            },
-          });
-        })
-        .catch((error) => toast.error(`Error: ${error}`));
+      }).then(() => {
+        return ctx.prisma.request.create({
+          data: {
+            name: input.name,
+            email: input.email,
+            type: input.type,
+            booking_date: input.booking_date ?? new Date(),
+            description: input.description,
+            address: input.address,
+            phone: input.phone,
+          },
+        });
+      });
     }),
 });

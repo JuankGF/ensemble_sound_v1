@@ -42,38 +42,40 @@ export default function AutocompleteAddress({ fieldName, className }: Props) {
 
         autoComplete.addListener("place_changed", () => {
           const place = autoComplete.getPlace();
-          let addressString = "";
-          for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
-            const componentType = component.types[0];
+          let addressString = place.formatted_address ?? "";
+          if (!addressString.length) {
+            for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
+              const componentType = component.types[0];
 
-            switch (componentType) {
-              case "street_number": {
-                addressString += `${component.long_name} `;
-                break;
+              switch (componentType) {
+                case "street_number": {
+                  addressString += `${component.long_name} `;
+                  break;
+                }
+
+                case "route": {
+                  addressString += `${component.short_name} `;
+                  break;
+                }
+
+                case "postal_code": {
+                  addressString += `${component.long_name} `;
+                  break;
+                }
+
+                case "locality":
+                  addressString += `${component.long_name} `;
+                  break;
+
+                case "administrative_area_level_1": {
+                  addressString += `${component.long_name} `;
+                  break;
+                }
+
+                case "country":
+                  addressString += `${component.long_name} `;
+                  break;
               }
-
-              case "route": {
-                addressString += `${component.short_name} `;
-                break;
-              }
-
-              case "postal_code": {
-                addressString += `${component.long_name} `;
-                break;
-              }
-
-              case "locality":
-                addressString += `${component.long_name} `;
-                break;
-
-              case "administrative_area_level_1": {
-                addressString += `${component.long_name} `;
-                break;
-              }
-
-              case "country":
-                addressString += `${component.long_name} `;
-                break;
             }
           }
           setFieldValue(fieldName, addressString.trim());

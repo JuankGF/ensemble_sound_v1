@@ -12,9 +12,12 @@ export default function BookService() {
   const router = useRouter();
   const { serviceId } = router.query;
   const { data: session } = useSession();
-  const { data, isLoading } = api.services.getById.useQuery({
-    id: serviceId as string,
-  });
+  const { data, isLoading } = api.services.getById.useQuery(
+    {
+      id: serviceId ? (serviceId as string) : "",
+    },
+    { onError: () => router.back() }
+  );
 
   if (isLoading) return <LoadingView />;
 

@@ -12,6 +12,7 @@ import Footer from "./Footer";
 import DateTimeInput from "./DatePicker";
 import RatingInput from "./RatingInput";
 import AutocompleteAddress from "./AutocompleteAddress";
+import ToastErrorTemplate from "./ToastErrorTemplate";
 
 export {
   Header,
@@ -28,4 +29,5 @@ export {
   DateTimeInput,
   RatingInput,
   AutocompleteAddress,
+  ToastErrorTemplate,
 };

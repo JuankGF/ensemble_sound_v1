@@ -2,10 +2,11 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { ServiceType } from "@prisma/client";
+import { toast } from "react-toastify";
 
 import { api } from "~/utils/api";
 import ServiceCard from "./ServiceCard";
-import { LoadingView } from "../utils";
+import { LoadingView, ToastErrorTemplate } from "../utils";
 
 export default function ServiceSection() {
   const [activeFilters, setActiveFilters] = useState<ServiceType[] | undefined>(
@@ -20,9 +21,17 @@ export default function ServiceSection() {
     setActiveFilters(filters);
   };
 
-  const { data: services, isLoading } = api.services.getByType.useQuery({
-    types: activeFilters,
-  });
+  const { data: services, isLoading } = api.services.getByType.useQuery(
+    {
+      types: activeFilters,
+    },
+    {
+      onError: (error) =>
+        toast.error(
+          <ToastErrorTemplate code={error.data?.code} message={error.message} />
+        ),
+    }
+  );
 
   if (isLoading) return <LoadingView />;
 

@@ -1,10 +1,11 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 import { api } from "~/utils/api";
 import TestimonialCard from "./TestimonialCard";
-import { LoadingView } from "../utils";
+import { LoadingView, ToastErrorTemplate } from "../utils";
 import TestimonialModal from "./TestimonialModal";
 
 export type SubmitProps = {
@@ -23,13 +24,26 @@ export default function TestimonialsSection() {
     isLoading,
     refetch,
     isRefetching,
-  } = api.testimonials.getAll.useQuery({
-    count: 6,
-    distinct: "authorId",
-  });
+  } = api.testimonials.getAll.useQuery(
+    {
+      count: 6,
+      distinct: "authorId",
+    },
+    {
+      onError: (error) =>
+        toast.error(
+          <ToastErrorTemplate code={error.data?.code} message={error.message} />
+        ),
+    }
+  );
 
   const { mutate, isSuccess } = api.testimonials.create.useMutation({
     onSuccess: () => refetch(),
+
+    onError: (error) =>
+      toast.error(
+        <ToastErrorTemplate code={error.data?.code} message={error.message} />
+      ),
   });
 
   const onSubmit = (values: SubmitProps) => {

@@ -8,18 +8,15 @@ export const template = `<!DOCTYPE html>
       rel="stylesheet"
     />
     <style>
-      body {
-        background-color: #573065;
-        color: #d8d8d8;
-        font-family: "Montserrat", sans-serif;
-        padding: 1em;
-      }
       h1 {
         color: #573065;
       }
     </style>
   </head>
   <body>
-    %BODY%
+    <div>
+      <img src="https://ensemble-sound-v1.vercel.app/_next/image?url=%2Flogo.png&w=256&q=75" alt="logo" />
+      %BODY%
+    </div>
   </body>
 </html>`;

@@ -116,22 +116,18 @@ export const mailerRouter = createTRPCRouter({
         booking_date: input.booking_date ?? new Date(),
         type: input.type,
         phone: input.phone ?? null,
-      })
-        .then(() => {
-          return ctx.prisma.request.create({
-            data: {
-              name: input.name,
-              email: input.email,
-              type: input.type,
-              booking_date: input.booking_date ?? new Date(),
-              description: input.description,
-              address: input.address,
-              phone: input.phone,
-            },
-          });
-        })
-        .catch(() => {
-          return;
+      }).then(() => {
+        return ctx.prisma.request.create({
+          data: {
+            name: input.name,
+            email: input.email,
+            type: input.type,
+            booking_date: input.booking_date ?? new Date(),
+            description: input.description,
+            address: input.address,
+            phone: input.phone,
+          },
         });
+      });
     }),
 });

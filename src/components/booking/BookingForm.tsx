@@ -5,19 +5,25 @@ import { useSession } from "next-auth/react";
 import { ServiceType } from "@prisma/client";
 import { format } from "date-fns";
 
-import { Button, DateTimeInput, Field } from "../utils";
+import { Button, DateTimeInput, Field, AutocompleteAddress } from "../utils";
 import { useScheduledDates } from "./hooks/useScheduledDates";
 import { api } from "~/utils/api";
 import { useWindowSize } from "~/hooks/useWindowSize";
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const BookingSchema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
   email: Yup.string().email().required("Email is a required field"),
-  phone: Yup.string().optional(),
+  phone: Yup.string()
+    .optional()
+    .matches(phoneRegExp, "Phone number is not valid"),
   booking_date: Yup.date()
     .required("Booking date is a required field")
     .min(format(new Date(), "yyyy-MM-dd hh:mm zz"), "Date must be after now"),
   type: Yup.string().optional(),
+  address: Yup.string().required("Address is a required field"),
   description: Yup.string().required("Description is a required field"),
 });
 
@@ -180,6 +186,16 @@ export default function BookingForm({ initialValues }: FormProps) {
               }}
               onBlur={() => setFieldTouched("booking_date")}
             />
+          </Field>
+          <Field
+            field="address"
+            label="Address"
+            className="mb-3"
+            error={errors.address}
+            touched={touched.address}
+            horizontal={!isSmallScreen}
+          >
+            <AutocompleteAddress className={inputClass} fieldName="address" />
           </Field>
           <Field
             field="type"

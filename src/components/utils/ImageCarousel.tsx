@@ -9,6 +9,7 @@ type CarouselProps = {
   className?: string;
   imageClass?: string;
   vertical?: boolean;
+  imagePriority?: boolean;
 };
 
 export default function ImageCarousel({
@@ -18,6 +19,7 @@ export default function ImageCarousel({
   imageClass,
   indicators = true,
   autoplay = true,
+  imagePriority = false,
 }: CarouselProps) {
   return (
     <Carousel
@@ -44,6 +46,7 @@ export default function ImageCarousel({
             className={`w-full object-cover ${imageClass ?? ""}`}
             src={image}
             alt={`${index + 1} slide`}
+            priority={imagePriority}
           />
         </div>
       ))}
